@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { Fade } from 'react-awesome-reveal';
-import { addToDb } from '../../utilities/fakedb';
+
 import { addToCart } from '../../store/slices/CartSlices';
 import 'animate.css';
 

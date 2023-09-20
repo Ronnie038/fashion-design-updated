@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useDispatch } from 'react-redux';
 import { updateQuantity } from '../../store/slices/CartSlices';
+// import { updateQuantity } from '../store/slices/CartSlices';
 
-const ProductCouter = ({ item }) => {
-	const { quantity, id } = item;
-
+const ProductCounter = ({ item }) => {
 	const dispatch = useDispatch();
-	const [itemQuantity, setItemQuantity] = useState(quantity ? quantity : 1);
+	const [itemQuantity, setItemQuantity] = useState(
+		item?.quantity ? item?.quantity : 1
+	);
 
-	console.log({ item });
 	const handleDcrement = () => {
 		if (itemQuantity < 2) {
 			return;
@@ -23,7 +23,7 @@ const ProductCouter = ({ item }) => {
 	};
 
 	useEffect(() => {
-		dispatch(updateQuantity({ id, quantity: itemQuantity }));
+		dispatch(updateQuantity({ id: item?.id, quantity: itemQuantity }));
 	}, [itemQuantity]);
 
 	return (
@@ -77,4 +77,4 @@ const ProductCouter = ({ item }) => {
 	);
 };
 
-export default ProductCouter;
+export default ProductCounter;

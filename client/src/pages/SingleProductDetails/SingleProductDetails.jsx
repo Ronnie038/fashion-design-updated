@@ -3,18 +3,19 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import Rating from 'react-rating';
 import { Icon } from '@iconify/react';
-import ProductCouter from '../ProductCouter/ProductCouter';
+
 import { Helmet } from 'react-helmet';
-import Discount50 from '../Discount50/Discount50';
+import Discount50 from '../../components/Discount50/Discount50';
 import { Link, useParams } from 'react-router-dom';
 import { getIems, getSingleItem } from '../../Api/ApiService';
-import { addToDb, getStoredCart } from '../../utilities/fakedb';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
 import { Fade } from 'react-awesome-reveal';
 // import { getIems } from "../../Api/ApiService";
 import brandIcon from '../../assets/icons/brand-icons/img1.png';
 import { addToCart } from '../../store/slices/CartSlices';
+import ProductCounter from '../../components/Counter/ProductCounter';
 
 const SingleProductDetails = () => {
 	const user = true;
@@ -161,7 +162,7 @@ const SingleProductDetails = () => {
 										</button>
 									</div>
 									<div className='flex gap-5 flex-wrap'>
-										<ProductCouter item={singleItemDetails} />
+										<ProductCounter item={singleItemDetails} />
 										<button
 											onClick={() => handleAddToCart(singleItemDetails)}
 											className='border-black border lg:px-8 px-4 lg:py-0 md:py-0 py-3 lg:w-auto md:w-auto w-full text-xl font-semibold'

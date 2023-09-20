@@ -7,14 +7,13 @@ import Login from '../pages/LoginPage/LoginPage';
 
 import Error from '../pages/Error/Error';
 import Cart from '../pages/Cart/Cart';
-import SingleProductDetails from '../components/SingleProductDetails/SingleProductDetails';
+import SingleProductDetails from '../pages/SingleProductDetails/SingleProductDetails';
 import PaymentCancel from '../pages/payment/paymentCancel';
 import PaymentFail from '../pages/payment/paymentFail';
 import PaymentSuccess from '../pages/payment/paymentSucces';
 import SignUp from '../pages/SignUp/SignUp';
 import AddNewAddress from '../pages/AddNewAddress/AddNewAddress';
 import AdedAdress from '../pages/AddNewAddress/AdedAdress';
-import ProductPurchasePage from '../components/ProductPurchasePage/ProductPurchasePage';
 import ForgetPassword from '../pages/ForgetPassword/ForgetPassword';
 import ForgetPasswordRequest from '../pages/ForgetPassword/ForgetPasswordRequest';
 import PrivateRoute from './PrivateRoute';
@@ -31,6 +30,7 @@ import Women from '../pages/MainPages/Women/Women';
 import Men from '../pages/MainPages/Men/Men';
 import Kids from '../pages/MainPages/Kids/Kids';
 import AddCategory from '../pages/Dashboard/AddCategory';
+import Checkout from '../pages/Checkout/Checkout';
 
 const router = createBrowserRouter([
 	{
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/checkOut',
-				element: <ProductPurchasePage></ProductPurchasePage>,
+				element: <Checkout />,
 			},
 			{
 				path: '/product-details/:_id',

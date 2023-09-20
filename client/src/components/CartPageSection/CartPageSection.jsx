@@ -2,18 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import CartImg from '../../assets/WomanNewItems/img2.png';
 import Rating from 'react-rating';
-import ProductCouter from '../ProductCouter/ProductCouter';
+import ProductCouter from '../Counter/ProductCounter';
 import { Link } from 'react-router-dom';
 import { Fade } from 'react-awesome-reveal';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	addToCartProducts,
-	addToDb,
-	deleteCartProduct,
-	getStoredCart,
-	removeFromDb,
-} from '../../utilities/fakedb';
+
 import AddedCartProducts from './AddedCartProducts';
 import { removeAll } from '../../store/slices/CartSlices';
 

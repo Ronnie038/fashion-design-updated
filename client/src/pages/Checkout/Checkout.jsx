@@ -2,23 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import CartImg from '../../assets/WomanNewItems/img2.png';
 import Rating from 'react-rating';
-import ProductCouter from '../ProductCouter/ProductCouter';
+
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Fade } from 'react-awesome-reveal';
 import { toast } from 'react-hot-toast';
-import AddressModal from '../AddressModal/AddressModal';
-import { useSelector } from 'react-redux';
-import {
-	addToCartProducts,
-	getStoredCart,
-	getToUserAddress,
-	removeFromDb,
-} from '../../utilities/fakedb';
+import AddressModal from '../../components/AddressModal/AddressModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getToUserAddress } from '../../utilities/fakedb';
+import { removeSingleItem } from '../../store/slices/CartSlices';
 
-const ProductPurchaseSection = () => {
+const Checkout = () => {
 	const user = true;
 	const userAddress = false;
+	const dispatch = useDispatch();
 
 	const foundProducts = [];
 	// const [products, setProducts] = useState([]);
@@ -132,7 +129,9 @@ const ProductPurchaseSection = () => {
 												<td className='py-5 px-3'>
 													<div className='flex justify-center'>
 														<Icon
-															onClick={() => removeFromDb(item?.id)}
+															onClick={() =>
+																dispatch(removeSingleItem(item.id))
+															}
 															title='Delete'
 															className='text-2xl text-red-600 cursor-pointer'
 															icon='fluent-mdl2:delete'
@@ -321,4 +320,4 @@ const ProductPurchaseSection = () => {
 	);
 };
 
-export default ProductPurchaseSection;
+export default Checkout;

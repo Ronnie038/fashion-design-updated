@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import HoverCategory from '../HoverCategory/HoverCategory';
 import { useSelector } from 'react-redux';
+import HoverCategory from './HoverCategory';
 const HoverCategories = ({ categoryName }) => {
 	// const [categories, setCategories] = useState([]);
 	const [quantity, setQuantity] = useState(5);

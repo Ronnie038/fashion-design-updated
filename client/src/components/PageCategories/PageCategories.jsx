@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { Slide } from 'react-awesome-reveal';
-import Category from '../Category/Category';
+import Category from './Category';
+// import Category from './Category';
 
 const PageCategories = ({ categoryData }) => {
 	// const [categories, setCategories] = useState([]);

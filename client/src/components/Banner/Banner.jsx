@@ -29,7 +29,7 @@ const Banner = () => {
 										<NavLink to='/women' className=' cursor-pointer'>
 											<label
 												tabIndex={0}
-												className='text-white lg:text-2xl uppercase'
+												className='text-white lg:text-2xl uppercase cursor-pointer'
 											>
 												Women
 											</label>
@@ -69,7 +69,7 @@ const Banner = () => {
 										<NavLink to='/kids'>
 											<label
 												tabIndex={0}
-												className='text-white lg:text-2xl uppercase'
+												className='text-white cursor-pointer lg:text-2xl uppercase'
 											>
 												Kids
 											</label>
