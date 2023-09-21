@@ -20,8 +20,8 @@ import PrivateRoute from './PrivateRoute';
 import Dashboard from '../pages/Dashboard/Dashboard/Dashboard';
 import DashboardDetails from '../pages/Dashboard/DashboardDetails';
 import Orders from '../pages/Dashboard/Orders';
-import Products from '../pages/Dashboard/Products';
-import AddProducts from '../pages/Dashboard/AddProducts';
+import Products from '../pages/Dashboard/Products/Products';
+import AddProducts from '../pages/Dashboard/Products/AddProducts';
 import Delivery from '../pages/Dashboard/Delivery';
 import ContactDetails from '../pages/Dashboard/ContactDetails';
 import Faq from '../pages/Dashboard/Faq';
@@ -123,39 +123,41 @@ const router = createBrowserRouter([
 
 		children: [
 			{
-				path: '/dashboard',
+				path: '',
+				index: true,
 				element: <DashboardDetails></DashboardDetails>,
 			},
 			{
-				path: 'dashboardDetails',
+				path: 'dashboard',
 				element: <DashboardDetails></DashboardDetails>,
 			},
+
 			{
-				path: '/dashboard/orders',
+				path: 'orders',
 				element: <Orders></Orders>,
 			},
 			{
-				path: '/dashboard/products',
+				path: 'products',
 				element: <Products></Products>,
 			},
 			{
-				path: '/dashboard/addproducts',
+				path: 'addproducts',
 				element: <AddProducts></AddProducts>,
 			},
 			{
-				path: '/dashboard/addcategories',
+				path: 'addcategories',
 				element: <AddCategory />,
 			},
 			{
-				path: '/dashboard/delivery',
+				path: 'delivery',
 				element: <Delivery></Delivery>,
 			},
 			{
-				path: '/dashboard/contact',
+				path: 'contact',
 				element: <ContactDetails></ContactDetails>,
 			},
 			{
-				path: '/dashboard/faq',
+				path: 'faq',
 				element: <Faq></Faq>,
 			},
 		],

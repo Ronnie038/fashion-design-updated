@@ -117,7 +117,7 @@ const Chart = () => {
 
 	return (
 		<div
-			className='border border-green-600 flex-1 p-2 rounded-2xl w-full'
+			className='border border-green-600 flex-1  rounded-2xl w-full'
 			id='chart'
 		>
 			<div className='flex justify-between lg:px-4 mt-4'>
@@ -131,7 +131,7 @@ const Chart = () => {
 					</p>
 				</div>
 			</div>
-			<div>
+			<div className=''>
 				<BarChart width={divWidth} height={300} data={data}>
 					<XAxis dataKey='name'></XAxis>
 					<YAxis />
