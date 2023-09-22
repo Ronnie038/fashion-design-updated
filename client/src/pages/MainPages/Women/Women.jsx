@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Banner from '../../../components/Banner/Banner';
 import DownloadMobile from '../../../components/DownloadMobile/DownloadMobile';
 
 import PageCategories from '../../../components/PageCategories/PageCategories';
 import { useSelector } from 'react-redux';
 import PageProducts from '../../../components/PageNewItems/PageProducts';
+import MainLoading from '../../../components/Loading/MainLoading';
+import { getCategoryByName } from '../../../Api/categoryServices';
 
 const Women = () => {
-	const categories = useSelector((state) => state.categories);
-	const filteredCategory = categories?.data?.find((category) =>
-		category.name?.toLowerCase().includes('women'.toLowerCase())
-	);
+	const [filteredCategory, setFilteredCategory] = useState({});
+	const [loading, setLoading] = useState(true);
+
+	// useEffect(() => {
+	// 	getCategoryByName('women', setFilteredCategory, setLoading);
+	// }, []);
+
+	// if (loading) return <MainLoading />;
 
 	return (
 		<div>
 			<Banner />
-			<PageCategories
-				categoryData={filteredCategory}
-				status={categories?.status}
-			/>
+			<PageCategories categoryName={'women'} />
 			<PageProducts />
 			<DownloadMobile></DownloadMobile>
 		</div>

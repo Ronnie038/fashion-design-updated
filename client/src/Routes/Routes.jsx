@@ -31,6 +31,8 @@ import Men from '../pages/MainPages/Men/Men';
 import Kids from '../pages/MainPages/Kids/Kids';
 import AddCategory from '../pages/Dashboard/AddCategory';
 import Checkout from '../pages/Checkout/Checkout';
+import AdminRoutes from './AdminRoute';
+import UpdateProduct from '../pages/Dashboard/Products/UpdateProduct';
 
 const router = createBrowserRouter([
 	{
@@ -119,7 +121,11 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/dashboard',
-		element: <Dashboard></Dashboard>,
+		element: (
+			<AdminRoutes>
+				<Dashboard></Dashboard>
+			</AdminRoutes>
+		),
 
 		children: [
 			{
@@ -143,6 +149,10 @@ const router = createBrowserRouter([
 			{
 				path: 'addproducts',
 				element: <AddProducts></AddProducts>,
+			},
+			{
+				path: 'updateProduct/:id',
+				element: <UpdateProduct />,
 			},
 			{
 				path: 'addcategories',

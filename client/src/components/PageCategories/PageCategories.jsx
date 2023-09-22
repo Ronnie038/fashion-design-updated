@@ -2,12 +2,21 @@ import React, { useEffect, useState } from 'react';
 
 import { Slide } from 'react-awesome-reveal';
 import Category from './Category';
+import Loading from '../Loading/Loading';
+import { getCategoryByName } from '../../Api/categoryServices';
 // import Category from './Category';
 
-const PageCategories = ({ categoryData }) => {
+const PageCategories = ({ categoryName }) => {
 	// const [categories, setCategories] = useState([]);
 	const [quantity, setQuantity] = useState(5);
+	const [loading, setLoading] = useState(true);
+	const [categoryData, setCateGoryData] = useState({});
 
+	useEffect(() => {
+		getCategoryByName(categoryName, setCateGoryData, setLoading);
+	}, []);
+
+	if (loading) return <Loading />;
 	return (
 		<div className='container w-[80%] mx-auto'>
 			<div className='text-center py-20'>

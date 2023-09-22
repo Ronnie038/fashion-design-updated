@@ -4,7 +4,7 @@ import Navbar from '../pages/Shared/Navbar/Navbar';
 import Footer from '../pages/Shared/Footer/Footer';
 import { getCategory, getIems } from '../Api/ApiService';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategories } from '../store/slices/CategorySlices';
+import { addCategories, fetchCategories } from '../store/slices/CategorySlices';
 import { addItems } from '../store/slices/ItemsSlices';
 import ChatOption from '../pages/Home/ChatOption/ChatOption';
 
@@ -14,6 +14,7 @@ const Main = () => {
 		// setCategories(data);
 	}, []);
 	useEffect(() => {
+		dispatch(fetchCategories());
 		getIems().then((data) => dispatch(addItems(data)));
 	}, []);
 

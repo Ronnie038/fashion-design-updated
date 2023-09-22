@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useSelector } from 'react-redux';
+import { logOut } from '../../../Api/auth';
 
 const Navbar = () => {
-	const user = true;
+	// const user = true;
+	const userData = useSelector((state) => state.user);
+	const { user, status, error } = userData;
 
 	// const [cartLength, setCartLength] = useState();
 	const cartLength = useSelector((state) => {
@@ -32,20 +35,24 @@ const Navbar = () => {
 								<Icon className='text-2xl' icon='circum:search' />
 							</div>
 						</div>
-						<div className='bg-[#3B95B0] p-2 rounded-md text-white'>
-							<Link to='/dashboard'>Dashboard</Link>
-						</div>
+						{user._id && user.isAdmin && user.role === 'admin' && (
+							<div className='bg-[#3B95B0] p-2 rounded-md text-white'>
+								<Link to='/dashboard'>Dashboard</Link>
+							</div>
+						)}
 						<div>
-							{user ? (
-								<Link to='/userProfile' className=''>
-									<div className='rounded-full h-10 w-10 overflow-hidden'>
-										<img
-											src='https://plus.unsplash.com/premium_photo-1689629870780-5d0e655383e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80' // Replace with your image URL
-											alt='Image'
-											className='object-cover object-center h-full w-full'
-										/>
-									</div>
-								</Link>
+							{user._id ? (
+								<>
+									<Link to='/userProfile' className=''>
+										<div className='rounded-full h-10 w-10 overflow-hidden'>
+											<img
+												src='https://plus.unsplash.com/premium_photo-1689629870780-5d0e655383e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80' // Replace with your image URL
+												alt='Image'
+												className='object-cover object-center h-full w-full'
+											/>
+										</div>
+									</Link>
+								</>
 							) : (
 								<Link
 									to='/login'
@@ -55,6 +62,7 @@ const Navbar = () => {
 								</Link>
 							)}
 						</div>
+
 						<div className='md:w-9 relative hover:scale-110'>
 							<Link to='/cart'>
 								<Icon
@@ -67,6 +75,11 @@ const Navbar = () => {
 							</div>
 							{/* <div className="badge badge-primary absolute -top-0 -right-8">+99</div> */}
 						</div>
+						{user._id && (
+							<div onClick={logOut} className='btn btn-sm'>
+								Logout
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

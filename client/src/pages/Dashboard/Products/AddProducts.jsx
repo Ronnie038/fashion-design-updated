@@ -1,29 +1,46 @@
 import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useSelector } from 'react-redux';
+import { createProduct } from '../../../Api/ProductsServices';
+import toast from 'react-hot-toast';
 
 const AddProducts = () => {
-	const [sizeGuides, setSizeGuides] = useState([]);
 	const [size, setSize] = useState('');
 	const [sizeServices, setSizeServices] = useState([]);
 	const [selectedImages, setSelectedImages] = useState([]);
 	const [offerPrice, setOfferPrice] = useState(0);
 	const [offerPercentage, setOfferPercentage] = useState(0);
 	const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
-
 	const [selectedSubcategoryIndex, setSelectedSubcategoryIndex] = useState(0);
 	const [formData, setFormData] = useState({});
+
+	const [loading, setLoading] = useState(false);
 
 	// dynamic category data
 	const categories = useSelector((state) => state.categories.data);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const newFormData = { ...formData, offerPrice, offerPercentage };
-		console.log(newFormData);
+		const form = e.target;
+		setLoading(true);
+		const newFormData = {
+			...formData,
+			offerPrice,
+			offerPercentage,
+			sizes: sizeServices,
+		};
+
+		const formDataObj = new FormData();
+		formDataObj.append('product', JSON.stringify(newFormData));
+		selectedImages.forEach((image) => {
+			formDataObj.append('images', image);
+		});
+		console.log(formDataObj);
+		createProduct(formDataObj, setLoading, toast, form, selectedImages);
 	};
 
-	const handleAddSizeService = () => {
+	const handleAddSizeService = (e) => {
+		e.preventDefault();
 		if (!size) return;
 		setSizeServices([...sizeServices, size]);
 		setSize('');
@@ -56,6 +73,7 @@ const AddProducts = () => {
 			files.length > 4 || selectedImages.length > 4 || newLength > 4;
 
 		if (isImageQuantityValid) {
+			setSelectedImages([]);
 			e.target.value = '';
 			return alert('image cannot be more than 5 ');
 		}
@@ -235,7 +253,6 @@ const AddProducts = () => {
 									}}
 									className='border w-full text-center  border-purple-200 p-3 mt-3'
 									type='number'
-									// value={offerPercentage}
 									name='offerPercentage'
 									placeholder='10%'
 									id='offerPercentage'
@@ -410,7 +427,7 @@ const AddProducts = () => {
 										handleCategoryChange(e);
 										handleInput(e);
 									}}
-									className='form-control text-xl '
+									className='form-control text-xl capitalize'
 									type='text'
 									name='category'
 								>
@@ -433,7 +450,7 @@ const AddProducts = () => {
 										handleSubcategoryChange(e);
 										handleInput(e);
 									}}
-									className='form-control text-xl '
+									className='form-control text-xl capitalize'
 									type='text'
 									name='subcategory'
 									required
@@ -505,19 +522,19 @@ const AddProducts = () => {
 									</div>
 								</div>
 								<div className='text-2xl flex justify-center items-center'>
-									<button
-										onClick={handleAddSizeService}
+									<span
+										onClick={(e) => handleAddSizeService(e)}
 										className='btn bg-[#282B35] text-white rounded-none hover:bg-[#3B95B0]'
 									>
 										<Icon icon='icomoon-free:plus' />
-									</button>
+									</span>
 								</div>
 							</div>
 							<div className='space-x-5'>
 								{sizeServices?.map((item, index) => (
 									<span key={index}>
 										{item}{' '}
-										<button
+										<span
 											onClick={() => handleRemoveSizeService(index)}
 											className='btn px-2 border-l border-0 bg-transparent hover:bg-transparent rounded-none'
 										>
@@ -525,7 +542,7 @@ const AddProducts = () => {
 												icon='lucide:delete'
 												className='text-xl text-red-700'
 											/>
-										</button>
+										</span>
 									</span>
 								))}
 							</div>
@@ -538,6 +555,7 @@ const AddProducts = () => {
 					</label>{' '}
 					<br />
 					<textarea
+						onChange={handleInput}
 						className='border p-4 w-full'
 						placeholder='message'
 						name='description'

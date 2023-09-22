@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { logOut } from '../../../Api/auth';
 
 const Sidebar = () => {
 	const sideBar = [
@@ -65,7 +66,10 @@ const Sidebar = () => {
 				))}
 
 				<li className='text-white xl:block lg:inline-block md:inline-block inline-block'>
-					<button className='flex hover:text-[#3997B1] transition-all delay-100 ease-in-out p-4 gap-2 text-xl font-semibold items-center'>
+					<button
+						onClick={logOut}
+						className='flex hover:text-[#3997B1] transition-all delay-100 ease-in-out p-4 gap-2 text-xl font-semibold items-center'
+					>
 						<Icon icon='mi:log-in' /> Log Out
 					</button>
 				</li>
