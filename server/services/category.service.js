@@ -1,20 +1,20 @@
-const Category = require("../models/Category");
-const Product = require("../models/Product");
+const Category = require('../models/Category');
+const Product = require('../models/Product');
 
 exports.createCategoryService = async (data) => {
-  const category = await Category.create(data);
+	const category = await Category.create(data);
 
-  return category;
+	return category;
 };
 exports.getCategoriesService = async () => {
-  const categories = await Product.distinct("category");
+	const categories = await Category.find({});
 
-  return categories;
+	return categories;
 };
 exports.getCategoryServiceById = async (id) => {
-  const store = await Category.findById(id);
+	const store = await Category.findById(id);
 
-  return store;
+	return store;
 };
 // exports.updateStoreService = async (id, data) => {
 // 	const result = await Category.updateOne({ _id: id }, data, {

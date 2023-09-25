@@ -20,6 +20,8 @@ const UpdateProduct = () => {
 	const [offerPercentage, setOfferPercentage] = useState(0);
 	const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 	const [selectedSubcategoryIndex, setSelectedSubcategoryIndex] = useState(0);
+	const [imageUrls, setImageUrls] = useState([]);
+	const [freeDelivery, setFreeDelivery] = useState(false);
 	const [formData, setFormData] = useState({});
 
 	const [loading, setLoading] = useState(false);
@@ -32,11 +34,16 @@ const UpdateProduct = () => {
 		e.preventDefault();
 		const form = e.target;
 		setLoading(true);
+		let offerData = {};
+		if (offerPercentage && offerPrice)
+			offerData = { offerPrice, offerPercentage };
+
 		const newFormData = {
 			...formData,
-			offerPrice,
-			offerPercentage,
+			...offerData,
+			freeDelivery,
 			sizes: sizeServices,
+			imageUrls,
 		};
 
 		let formDataObj = new FormData();
@@ -58,6 +65,9 @@ const UpdateProduct = () => {
 				console.log(data);
 				if (res.ok) {
 					setProduct(data);
+					setFreeDelivery(data.freeDelivery);
+					console.log(data.freeDelivery);
+					setImageUrls([...data.imageUrls]);
 					setSizeServices([...data.sizes]);
 				}
 				// console.log(res);
@@ -128,6 +138,11 @@ const UpdateProduct = () => {
 		const deletedImage = images.splice(index, 1);
 		setSelectedImages(images);
 	};
+	const handleRemoveAxistingImage = (index) => {
+		const images = [...imageUrls];
+		const deletedImage = images.splice(index, 1);
+		setImageUrls(images);
+	};
 
 	// Initialize variables
 	let newPrice = 0;
@@ -135,7 +150,6 @@ const UpdateProduct = () => {
 	let discountPrice = 0;
 	const handleDiscount = (e) => {
 		const { name, value } = e.target;
-		if (value < 0) return;
 
 		// Get input elements by their IDs
 		let discountPriceInput = document.getElementById('discountPrice');
@@ -200,7 +214,10 @@ const UpdateProduct = () => {
 
 	return (
 		<div className=' w-11/12 mx-auto' style={{ userSelect: 'none' }}>
-			<h1 className='text-3xl my-8 font-semibold'>Add Products</h1>
+			<h1 className='text-3xl my-8 font-semibold'>
+				Update Product <br />
+				id:{product?._id}
+			</h1>
 			<form onSubmit={handleSubmit}>
 				<div className='grid md:grid-cols-2  grid-cols-1 w-full gap-8'>
 					<div className='w-full'>
@@ -242,6 +259,7 @@ const UpdateProduct = () => {
 								</label>{' '}
 								<br />
 								<input
+									min={0}
 									defaultValue={product?.stock}
 									onChange={handleInput}
 									className='border w-full text-center border-purple-200 p-3 mt-3'
@@ -262,6 +280,7 @@ const UpdateProduct = () => {
 								</label>{' '}
 								<br />
 								<input
+									min={0}
 									defaultValue={product?.regularPrice}
 									onChange={handleInput}
 									className='border w-full text-center border-purple-200 p-3 mt-3'
@@ -280,6 +299,7 @@ const UpdateProduct = () => {
 								</label>{' '}
 								<br />
 								<input
+									min={0}
 									defaultValue={product?.offerPercentage}
 									onChange={(e) => {
 										handleInput(e);
@@ -300,6 +320,7 @@ const UpdateProduct = () => {
 								</label>{' '}
 								<br />
 								<input
+									min={0}
 									onChange={(e) => {
 										handleInput(e);
 										handleDiscount(e);
@@ -381,7 +402,8 @@ const UpdateProduct = () => {
 								</label>{' '}
 								<br />
 								<input
-									onChange={handleInput}
+									onChange={(e) => setFreeDelivery(e.target.checked)}
+									checked={product?.freeDelivery}
 									className='border w-[20px]   border-purple-200 bg-gray-700 h-[20px] p-3 mt-3'
 									type='checkbox'
 									name='freeDelivery'
@@ -402,7 +424,6 @@ const UpdateProduct = () => {
 								<br />
 								<input
 									autoComplete='off'
-									required
 									type='file'
 									name='images'
 									accept='image/*'
@@ -432,6 +453,24 @@ const UpdateProduct = () => {
 										icon='lucide:delete'
 										className='text-xl text-red-700 absolute cursor-pointer top-0 right-0'
 										onClick={() => handleRemoveSelectedImage(index)}
+									/>
+								</div>
+							))}
+							{imageUrls?.map((image, index) => (
+								<div key={index} className='relative'>
+									<img
+										src={image}
+										alt={`Preview ${index}`}
+										style={{
+											maxWidth: '100px',
+											maxHeight: '100px',
+											margin: '5px',
+										}}
+									/>
+									<Icon
+										icon='lucide:delete'
+										className='text-xl text-red-700 absolute cursor-pointer top-0 right-0'
+										onClick={() => handleRemoveAxistingImage(index)}
 									/>
 								</div>
 							))}

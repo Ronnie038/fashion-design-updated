@@ -121,23 +121,78 @@ exports.deleteProduct = async (req, res) => {
 	}
 };
 
+// exports.updateProduct = async (req, res) => {
+// 	try {
+// 		const productId = req.params.productId;
+// 		let updateData;
+// 		let image;
+// 		if (req.files) {
+// 			updateData = JSON.parse(req.body.product); // Updated data from the request body
+// 			const newimageUrls = req.files.map(
+// 				(file) => `${process.env.APP_URL}/images/${file.filename}`
+// 			);
+// 			const imageUrls = [...updateData.imageUrls];
+// 			updateData.imageUrls = [...newimageUrls, imageUrls];
+// 			updateData.image = imageUrls[0];
+// 		} else {
+// 			updateData = req.body;
+// 		}
+
+// 		// Find the product by ID and update it
+// 		const updatedProduct = await Product.findByIdAndUpdate(
+// 			productId,
+// 			updateData,
+// 			{ new: true }
+// 		);
+
+// 		if (!updatedProduct) {
+// 			return res.status(404).json({
+// 				success: false,
+// 				message: 'Product not found',
+// 			});
+// 		}
+
+// 		res.status(200).json({
+// 			success: true,
+// 			message: 'Product updated',
+// 			// data: updatedProduct,
+// 		});
+// 	} catch (error) {
+// 		res.status(500).json({
+// 			success: false,
+// 			message: 'An error occurred while updating the product',
+// 		});
+// 	}
+// };
+
+// const Product = require('../models/Product'); // Import your Product model here
+
 exports.updateProduct = async (req, res) => {
 	try {
 		const productId = req.params.productId;
 		let updateData;
 		let image;
+
+		// Check if the request contains files (images) to update
 		if (req.files) {
-			updateData = JSON.parse(req.body.product); // Updated data from the request body
-			const imageUrls = req.files.map(
+			updateData = JSON.parse(req.body.product); // Parsed updated data from the request body
+
+			// Generate new image URLs for uploaded files
+			const newImageUrls = req.files.map(
 				(file) => `${process.env.APP_URL}/images/${file.filename}`
 			);
+
+			// Append the new image URLs to the existing ones
+			const imageUrls = [...updateData.imageUrls, ...newImageUrls];
 			updateData.imageUrls = imageUrls;
 			updateData.image = imageUrls[0];
 		} else {
-			updateData = req.body;
+			updateData = req.body; // Use request body as update data if no files were uploaded
 		}
 
 		// Find the product by ID and update it
+		console.log(updateData);
+		updateData.image = updateData.imageUrls[0];
 		const updatedProduct = await Product.findByIdAndUpdate(
 			productId,
 			updateData,
@@ -151,12 +206,14 @@ exports.updateProduct = async (req, res) => {
 			});
 		}
 
+		// Respond with a success message and updated product data
 		res.status(200).json({
 			success: true,
 			message: 'Product updated',
-			// data: updatedProduct,
+			data: updatedProduct,
 		});
 	} catch (error) {
+		// Handle any errors that occur during the update process
 		res.status(500).json({
 			success: false,
 			message: 'An error occurred while updating the product',

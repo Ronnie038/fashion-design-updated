@@ -13,6 +13,7 @@ const AddProducts = () => {
 	const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 	const [selectedSubcategoryIndex, setSelectedSubcategoryIndex] = useState(0);
 	const [formData, setFormData] = useState({});
+	const [freeDelevary, setFreeDelivery] = useState(false);
 
 	const [loading, setLoading] = useState(false);
 
@@ -28,6 +29,7 @@ const AddProducts = () => {
 			offerPrice,
 			offerPercentage,
 			sizes: sizeServices,
+			freeDelevary,
 		};
 
 		const formDataObj = new FormData();
@@ -106,7 +108,6 @@ const AddProducts = () => {
 	let discountPrice = 0;
 	const handleDiscount = (e) => {
 		const { name, value } = e.target;
-		if (value < 0) return;
 
 		// Get input elements by their IDs
 		let discountPriceInput = document.getElementById('discountPrice');
@@ -211,6 +212,7 @@ const AddProducts = () => {
 								</label>{' '}
 								<br />
 								<input
+									min={0}
 									onChange={handleInput}
 									className='border w-full text-center border-purple-200 p-3 mt-3'
 									type='number'
@@ -230,6 +232,7 @@ const AddProducts = () => {
 								</label>{' '}
 								<br />
 								<input
+									min={0}
 									onChange={handleInput}
 									className='border w-full text-center border-purple-200 p-3 mt-3'
 									type='number'
@@ -251,6 +254,7 @@ const AddProducts = () => {
 										handleInput(e);
 										handleDiscount(e);
 									}}
+									min={0}
 									className='border w-full text-center  border-purple-200 p-3 mt-3'
 									type='number'
 									name='offerPercentage'
@@ -270,6 +274,7 @@ const AddProducts = () => {
 										handleInput(e);
 										handleDiscount(e);
 									}}
+									min={0}
 									className='border w-full border-purple-200 p-3 mt-3'
 									type='number'
 									name='discountPrice'
@@ -346,7 +351,7 @@ const AddProducts = () => {
 								</label>{' '}
 								<br />
 								<input
-									onChange={handleInput}
+									onChange={(e) => setFreeDelivery(e.target.checked)}
 									className='border w-[20px]   border-purple-200 bg-gray-700 h-[20px] p-3 mt-3'
 									type='checkbox'
 									name='freeDelivery'

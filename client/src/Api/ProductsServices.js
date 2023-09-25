@@ -29,12 +29,25 @@ const createProduct = (formData, setLoading, toast, form, selectedImages) => {
 
 const updateProduct = (updatedData, id, setLoading, toast) => {
 	const update = async () => {
+		const dataType = typeof updatedData;
 		try {
-			const res = await fetch(`${apiUrl}/products/${id}`, {
-				method: 'PUT',
-				credentials: 'include',
-				body: updatedData,
-			});
+			let res;
+			if (dataType !== 'string') {
+				res = await fetch(`${apiUrl}/products/${id}`, {
+					method: 'PUT',
+					credentials: 'include',
+					body: updatedData,
+				});
+			} else {
+				res = await fetch(`${apiUrl}/products/${id}`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'Application/json',
+					},
+					credentials: 'include',
+					body: updatedData,
+				});
+			}
 			const data = res.json();
 			if (res.ok) {
 				toast.success('product Updated');

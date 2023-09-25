@@ -66,7 +66,7 @@ const productSchema = mongoose.Schema(
 			enum: ['in-stock', 'out-of-stock'],
 			default: 'in-stock',
 		},
-		freeDelevary: {
+		freeDelivery: {
 			type: Mixed,
 			default: false,
 		},

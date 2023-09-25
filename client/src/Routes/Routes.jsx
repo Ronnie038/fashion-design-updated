@@ -29,7 +29,7 @@ import UserProfile from '../pages/UserProfile/UserProfile';
 import Women from '../pages/MainPages/Women/Women';
 import Men from '../pages/MainPages/Men/Men';
 import Kids from '../pages/MainPages/Kids/Kids';
-import AddCategory from '../pages/Dashboard/AddCategory';
+import AddCategory from '../pages/Dashboard/Category/AddCategory';
 import Checkout from '../pages/Checkout/Checkout';
 import AdminRoutes from './AdminRoute';
 import UpdateProduct from '../pages/Dashboard/Products/UpdateProduct';
