@@ -3,7 +3,7 @@ const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 export const fetchUserProfile = createAsyncThunk(
 	'user/fetchUserProfile', // Updated action name
-	async () => {
+	async (_, { dispatch }) => {
 		try {
 			const response = await fetch(`${apiUrl}/user/profile`, {
 				credentials: 'include',
@@ -12,6 +12,7 @@ export const fetchUserProfile = createAsyncThunk(
 				throw new Error('Failed to fetch userProfile');
 			}
 			const data = await response.json();
+			dispatch(fetchUserProfile.fulfilled(data.user));
 			return data.user;
 		} catch (error) {
 			throw error;

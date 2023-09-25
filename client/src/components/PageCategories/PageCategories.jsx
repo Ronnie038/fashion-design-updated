@@ -4,19 +4,23 @@ import { Slide } from 'react-awesome-reveal';
 import Category from './Category';
 import Loading from '../Loading/Loading';
 import { getCategoryByName } from '../../Api/categoryServices';
+import { useSelector } from 'react-redux';
 // import Category from './Category';
 
 const PageCategories = ({ categoryName }) => {
 	// const [categories, setCategories] = useState([]);
+	const categories = useSelector((state) => state.categories);
 	const [quantity, setQuantity] = useState(5);
-	const [loading, setLoading] = useState(true);
-	const [categoryData, setCateGoryData] = useState({});
+	const [categoryData, setCateGoryData] = useState();
 
 	useEffect(() => {
-		getCategoryByName(categoryName, setCateGoryData, setLoading);
-	}, []);
+		const data = categories.data?.find((category) =>
+			category.name?.toLowerCase().includes(categoryName?.toLowerCase())
+		);
+		setCateGoryData(data);
+	}, [categoryName, categories.status]);
 
-	if (loading) return <Loading />;
+	if (categories.status === 'loading') return <Loading />;
 	return (
 		<div className='container w-[80%] mx-auto'>
 			<div className='text-center py-20'>

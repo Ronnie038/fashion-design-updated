@@ -1,11 +1,12 @@
 // categorySlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+const apiBaseUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 export const fetchCategories = createAsyncThunk(
 	'categories/fetchCategories',
 	async () => {
 		try {
-			const response = await fetch('../../../public/file2.json');
+			const response = await fetch(`${apiBaseUrl}/category`);
 			if (!response.ok) {
 				throw new Error('Failed to fetch categories');
 			}
@@ -32,7 +33,7 @@ const categorySlice = createSlice({
 			})
 			.addCase(fetchCategories.fulfilled, (state, action) => {
 				state.status = 'succeeded';
-				state.data = action.payload;
+				state.data = action.payload.data;
 			})
 			.addCase(fetchCategories.rejected, (state, action) => {
 				state.status = 'failed';

@@ -7,6 +7,7 @@ const HoverCategories = ({ categoryName }) => {
 	const [quantity, setQuantity] = useState(5);
 
 	const categories = useSelector((state) => state.categories);
+	// console.log(categories);
 	const filteredCategory = categories?.data?.find((category) =>
 		category.name?.toLowerCase().includes(categoryName?.toLowerCase())
 	);

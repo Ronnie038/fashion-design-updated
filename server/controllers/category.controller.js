@@ -93,9 +93,10 @@ exports.getCategoryById = async (req, res, next) => {
 
 exports.deleteCategoryById = async (req, res, next) => {
 	try {
-		const id = req.params;
+		const { id } = req.params;
 		const updatedCategory = req.body;
-		const updatedProduct = await Product.findByIdAndUpdate(
+		console.log(updatedCategory);
+		const newUpdatedCategory = await Category.findByIdAndUpdate(
 			id,
 			updatedCategory,
 			{ new: true }

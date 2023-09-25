@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import {
 	createCategoryService,
+	deleteCategoryService,
 	getAllCategoryService,
 } from '../../../Api/categoryServices';
 import Category from '../../../components/PageCategories/Category';
@@ -36,6 +37,22 @@ const AddCategory = () => {
 		setCategory({ ...category, [name]: value });
 	};
 
+	const handleDeleteDeleteCategory = (index, subIndex) => {
+		const confirm = window.confirm('Are you sure to delete this item');
+		if (!confirm) return;
+		const copiedCategories = [...categories];
+		const newSubcategories = copiedCategories[index].subcategories;
+		newSubcategories.splice(subIndex, 1);
+		setCategories(copiedCategories);
+		const updatedCategory = copiedCategories[index];
+		deleteCategoryService(
+			updatedCategory._id,
+			updatedCategory,
+			toast,
+			setRefetch
+		);
+	};
+
 	useEffect(() => {
 		getAllCategoryService(setCategories);
 	}, [refetch]);
@@ -44,13 +61,13 @@ const AddCategory = () => {
 			<h2 className='text-3xl font-semibold my-10 '> Categories</h2>
 
 			<div className='flex'>
-				{categories?.map((category) => (
+				{categories?.map((category, idx) => (
 					<div key={category._id} className='flex-1 border '>
 						<h3 className=' text-2xl font-bold capitalize px-4 border-b-2'>
 							{category.name}
 						</h3>
 
-						{category.subcategories?.map((sub) => (
+						{category.subcategories?.map((sub, subIndex) => (
 							<div
 								key={sub.id}
 								className='my-5 p-5 relative flex items-center gap-5'
@@ -66,6 +83,7 @@ const AddCategory = () => {
 									{sub.title}
 								</span>
 								<Icon
+									onClick={() => handleDeleteDeleteCategory(idx, subIndex)}
 									icon='material-symbols:delete-outline'
 									className='text-2xl absolute top-0 right-5 text-red-500'
 								/>
@@ -95,11 +113,11 @@ const AddCategory = () => {
 					</div>
 					<div className='flex-1'>
 						<label htmlFor='' className='font-semibold'>
-							Category
+							Sections
 						</label>
 						<br />
 						<select onChange={handleInputChange} name='name' id='' required>
-							<option value=''>Select Category</option>
+							<option value=''>Select Section</option>
 							<option value='men'>Men</option>
 							<option value='women'>women</option>
 							<option value='kids'>Kids</option>

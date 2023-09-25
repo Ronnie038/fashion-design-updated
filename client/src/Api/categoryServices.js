@@ -1,4 +1,4 @@
-const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
+const apiBaseUrl = import.meta.env.VITE_REACT_APP_API_URL;
 const getCategoryByName = (categoryName, setFilteredCategory, setLoading) => {
 	const getData = async () => {
 		try {
@@ -22,7 +22,7 @@ const getCategoryByName = (categoryName, setFilteredCategory, setLoading) => {
 const getAllCategoryService = (setCategories) => {
 	const getData = async () => {
 		try {
-			const res = await fetch(`${apiUrl}/category`);
+			const res = await fetch(`${apiBaseUrl}/category`);
 			const data = await res.json();
 			console.log(data);
 			if (res.ok) {
@@ -39,7 +39,7 @@ const getAllCategoryService = (setCategories) => {
 const createCategoryService = (categoryObj, toast, setRefetch) => {
 	const create = async () => {
 		try {
-			const res = await fetch(`${apiUrl}/category`, {
+			const res = await fetch(`${apiBaseUrl}/category`, {
 				method: 'POST',
 				// headers: { 'Content-Type': 'application/json' },
 				body: categoryObj,
@@ -57,25 +57,41 @@ const createCategoryService = (categoryObj, toast, setRefetch) => {
 	create();
 };
 
-const deleteCategoryService = (id, category, toast) => {
-	const del = async () => {
-		try {
-			const res = await fetch(`${apiUrl}/category/${id}`, {
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'Application/json',
-				},
-				body: JSON.stringify(category),
-			});
-			const data = await res.json();
-			if (res.ok) {
-				toast.success('subcategory deleted');
-			}
-		} catch (error) {
-			console.log(error);
+const deleteCategoryService = async (id, category, toast, setRefetch) => {
+	try {
+		// Construct the API endpoint URL
+		const apiUrl = `${apiBaseUrl}/category/${id}`;
+
+		// Configure the HTTP request
+		const requestOptions = {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(category),
+		};
+
+		// Send the DELETE request to the API
+		const response = await fetch(apiUrl, requestOptions);
+
+		// Parse the response data as JSON
+		const responseData = await response.json();
+
+		if (response.ok) {
+			// If the response status is OK, trigger a data refetch and show a success message
+			setRefetch((prevRefetch) => !prevRefetch);
+			toast.success('Subcategory deleted successfully.');
+		} else {
+			// If the response status is not OK, handle the error gracefully
+			throw new Error(`Failed to delete category: ${responseData.message}`);
 		}
-	};
-	del();
+	} catch (error) {
+		// Handle any network or unexpected errors
+		console.error('An error occurred while deleting the subcategory:', error);
+		toast.error(
+			'An error occurred while deleting the subcategory. Please try again.'
+		);
+	}
 };
 
 export {
