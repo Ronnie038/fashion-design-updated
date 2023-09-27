@@ -9,6 +9,7 @@ const getToUserAddress = () => {
 	if (storedCart) {
 		shoppingCart = JSON.parse(storedCart);
 	}
+
 	return shoppingCart;
 };
 

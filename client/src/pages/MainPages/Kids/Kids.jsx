@@ -11,7 +11,7 @@ const Kids = () => {
 		<div>
 			<Banner />
 			<PageCategories categoryName={'kids'} />
-			<PageProducts />
+			<PageProducts section={'kids'} />
 			<DownloadMobile></DownloadMobile>
 		</div>
 	);

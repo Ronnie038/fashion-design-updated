@@ -117,11 +117,12 @@ const Checkout = () => {
 									{products.map((item, index) => (
 										<>
 											<tr className='border'>
+												<td className='py-5 px-3 font-semibold'>{item.name}</td>
 												<td className='py-5 px-3 font-semibold'>
-													{item.title}
-												</td>
-												<td className='py-5 px-3 font-semibold'>
-													{item.price}$
+													{item.offerPrice
+														? item.offerPrice
+														: item.regularPrice}
+													$
 												</td>
 												<td className='py-5 px-3 font-semibold'>
 													{item.quantity}
@@ -130,7 +131,7 @@ const Checkout = () => {
 													<div className='flex justify-center'>
 														<Icon
 															onClick={() =>
-																dispatch(removeSingleItem(item.id))
+																dispatch(removeSingleItem(item._id))
 															}
 															title='Delete'
 															className='text-2xl text-red-600 cursor-pointer'
@@ -184,7 +185,7 @@ const Checkout = () => {
 												</p>
 												<p>
 													<span className='font-medium'>Mobile:</span>{' '}
-													{getAddressModalData?.mobile}
+													{getAddressModalData?.contactNumber}
 												</p>
 												<p>
 													<span className='font-medium'>Address:</span>{' '}
@@ -234,9 +235,11 @@ const Checkout = () => {
 											</td>
 										</tr>
 										<tr>
-											<td className='border p-5 text-lg font-semibold'>Vat</td>
+											<td className='border p-5 text-lg font-semibold'>
+												Vat {5}%
+											</td>
 											<td className='border p-5 text-lg font-semibold text-end'>
-												{5}%
+												{subTotal * 0.05}৳
 											</td>
 										</tr>
 										<tr>

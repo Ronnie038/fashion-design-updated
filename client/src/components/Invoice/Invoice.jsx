@@ -44,7 +44,7 @@ const Invoice = ({ order }) => {
 						<div>
 							<h1 className='font-bold text-xl py-2'>Bill From:</h1>
 							<p className='font-bold text-xl py-2 text-[#006bfa]'>
-								Global It Park
+								UrbanUtopia
 							</p>
 							<p>
 								10 Taher Tower Shopping Center,Shop#219,(1st Floor), <br />

@@ -16,22 +16,26 @@ import { Fade } from 'react-awesome-reveal';
 import brandIcon from '../../assets/icons/brand-icons/img1.png';
 import { addToCart } from '../../store/slices/CartSlices';
 import ProductCounter from '../../components/Counter/ProductCounter';
+import { getSingleProduct } from '../../Api/ProductsServices';
 
 const SingleProductDetails = () => {
 	const user = true;
 	const dispatch = useDispatch();
 	const { _id } = useParams();
 	const [singleItemDetails, setSingleItemDetails] = useState([]);
-	const { title, image, price, description } = singleItemDetails;
+	const [product, setProduct] = useState({});
+	const [images, setImages] = useState([]);
 	const [cart, setCart] = useState([]);
 	const [quantity, setQuantity] = useState(1);
 	const [priceItm, setPriceItm] = useState(null);
 
 	// console.log(singleItemDetails)
-	let priceItems = price;
+	let priceItems = product?.offerPrice
+		? product.offerPrice
+		: product?.regularPrice;
 	useEffect(() => {
 		setPriceItm(quantity * priceItems);
-	}, [quantity, price]);
+	}, [quantity, priceItems]);
 
 	// const handleAddToCart = (product) => {
 	//   const newCart = [...cart, product];
@@ -45,6 +49,11 @@ const SingleProductDetails = () => {
 	}, []);
 
 	// toastify
+
+	useEffect(() => {
+		getSingleProduct(_id, setProduct, setImages);
+	}, [_id]);
+
 	const notify = () =>
 		toast.success('Your Product Added Successfull', {
 			style: {
@@ -66,24 +75,7 @@ const SingleProductDetails = () => {
 		}
 	};
 
-	const images = [
-		{
-			original: `${image}`,
-			thumbnail: `${image}`,
-		},
-		{
-			original: `${image}`,
-			thumbnail: `${image}`,
-		},
-		{
-			original: `${image}`,
-			thumbnail: `${image}`,
-		},
-		{
-			original: `${image}`,
-			thumbnail: `${image}`,
-		},
-	];
+	console.log(images);
 
 	return (
 		<div>
@@ -95,31 +87,41 @@ const SingleProductDetails = () => {
 					<div className='lg:flex justify-center relative'>
 						<div className='flex flex-col lg:flex-row justify-center items-center lg:mx-5 lg:items-start gap-8 lg:gap-10 '>
 							<div className='w-full lg:w-6/12 md:w-11/12'>
-								<ImageGallery
-									showPlayButton={false}
-									slideOnThumbnailOver={true}
-									showFullscreenButton={false}
-									slideDuration={400}
-									items={images}
-								/>
+								{images.length && (
+									<ImageGallery
+										showPlayButton={false}
+										slideOnThumbnailOver={true}
+										showFullscreenButton={false}
+										slideDuration={400}
+										items={images}
+									/>
+								)}
 							</div>
 							<div className='w-full lg:w-6/12 md:w-11/12 space-y-2'>
 								<h2 className='lg:text-4xl md:text-4xl text-3xl font-semibold'>
-									{title}
+									{product?.name}
 								</h2>
 								<div className='flex flex-wrap lg:gap-8 md:gap-5 gap-3 items-center'>
 									<p className='text-xl font-semibold'>
-										<del className='text-[#757575]'>41.40৳</del>
+										<del className='text-[#757575]'>
+											{product?.regularPrice}৳
+										</del>
 									</p>
-									<p className='text-2xl font-semibold'>
-										<ins className='no-underline'>{price}৳</ins>
-									</p>
-									<h4 className='bg-[#DE2121] px-3 py-1 text-sm text-white font-semibold text-center'>
-										50% Off
-									</h4>
-									<div>
+									{product.offerPercentage && (
+										<>
+											<p className='text-2xl font-semibold'>
+												<ins className='no-underline'>
+													{product?.offerPrice}৳
+												</ins>
+											</p>
+											<h4 className='bg-[#DE2121] px-3 py-1 text-sm text-white font-semibold text-center'>
+												{product.offerPercentage}% Off
+											</h4>
+										</>
+									)}
+									{/* <div>
 										<img src={brandIcon} className='w-full' alt='' />
-									</div>
+									</div> */}
 								</div>
 								<div className='flex items-center gap-3'>
 									<Rating
@@ -135,31 +137,35 @@ const SingleProductDetails = () => {
 								<hr />
 								<div className='space-y-4'>
 									<div className='space-y-2 mt-5 font-semibold'>
-										<li className='list-none'>New Arribal Shoes collection</li>
-										<li className='list-none'>Air force shoes collection</li>
-										<li className='list-none'>New design shoes collection</li>
+										{product?.description}
 									</div>
 									<div>
 										<h3 className='font-semibold flex items-center gap-2'>
 											<span className='text-xl font-bold uppercase'>SKU:</span>{' '}
-											Mega-jewe-177-1
+											{product?.sku}
 										</h3>
 										<h3 className='font-semibold flex items-center gap-2 mb-5'>
 											<span className='text-xl font-bold'>Categories:</span>{' '}
-											Nike Brand Shoes
+											{product?.subcategory}
 										</h3>
 									</div>
-									<div className='flex gap-5'>
-										<button className='lg:w-6/12 border rounded-none border-black bg-white lg:px-8 px-2 md:px-8 py-3 flex items-center gap-3 text-xl'>
+									<div className='flex flex-col'>
+										{/* <button className='lg:w-6/12 border rounded-none border-black bg-white lg:px-8 px-2 md:px-8 py-3 flex items-center gap-3 text-xl'>
 											<Icon
 												className='text-2xl  font-bold'
 												icon='streamline:interface-favorite-heart-reward-social-rating-media-heart-it-like-favorite-love'
 											/>{' '}
 											Wish List
-										</button>
+										</button> */}
 										<button className='lg:w-6/12 border rounded-none border-black bg-white py-3 lg:px-9 px-2 md:px-9 text-xl'>
 											Size Guide
 										</button>
+										<br />
+										<div className='flex gap-2'>
+											{product?.sizes?.map((size) => (
+												<span className='border text-2xl p-2'>{size}</span>
+											))}
+										</div>
 									</div>
 									<div className='flex gap-5 flex-wrap'>
 										<ProductCounter item={singleItemDetails} />

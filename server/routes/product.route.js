@@ -11,6 +11,8 @@ router
 	.get(productController.getProducts);
 
 router.get('/displayProducts', productController.getAllproducts);
+
+// router.get('/section/:id', productController.getProductsBySection);
 router
 	.route('/:productId')
 	.get(productController.getProductById)

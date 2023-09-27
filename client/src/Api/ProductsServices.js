@@ -63,4 +63,21 @@ const updateProduct = (updatedData, id, setLoading, toast) => {
 	update();
 };
 
-export { createProduct, updateProduct };
+const getSingleProduct = async (id, setProduct, setImages) => {
+	try {
+		const res = await fetch(`${apiUrl}/products/${id}`);
+		const data = await res.json();
+		if (res.ok) {
+			console.log(data);
+			setProduct(data);
+			const images = data?.imageUrls?.map((image) => {
+				return { original: image, thumbnail: image };
+			});
+			setImages(images);
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export { createProduct, updateProduct, getSingleProduct };

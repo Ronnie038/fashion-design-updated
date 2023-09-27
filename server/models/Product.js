@@ -31,12 +31,7 @@ const productSchema = mongoose.Schema(
 		discountPrice: {
 			type: Mixed,
 		},
-		featureDatas: [
-			{
-				header: String,
-				features: Object,
-			},
-		],
+
 		stock: {
 			type: Mixed,
 		},
@@ -70,7 +65,7 @@ const productSchema = mongoose.Schema(
 			type: Mixed,
 			default: false,
 		},
-		newArrival: String,
+		newArrival: Boolean,
 		subcategory: String,
 	},
 	{

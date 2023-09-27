@@ -22,7 +22,7 @@ const Women = () => {
 		<div>
 			<Banner />
 			<PageCategories categoryName={'women'} />
-			<PageProducts />
+			<PageProducts section={'women'} />
 			<DownloadMobile></DownloadMobile>
 		</div>
 	);

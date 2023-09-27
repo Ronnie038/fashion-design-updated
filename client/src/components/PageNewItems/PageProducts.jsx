@@ -8,8 +8,9 @@ import { Fade } from 'react-awesome-reveal';
 
 import { addToCart } from '../../store/slices/CartSlices';
 import 'animate.css';
+import { fetchProducts } from '../../store/slices/productsSlices';
 
-const PageProducts = () => {
+const PageProducts = ({ section }) => {
 	const user = true;
 	const dispatch = useDispatch();
 	// const [items, setItems] = useState([]);
@@ -21,6 +22,8 @@ const PageProducts = () => {
 		return state.items;
 	});
 
+	const products = useSelector((state) => state.products);
+	console.log(products);
 	// toastify
 	const notify = () =>
 		toast.success('Your Product Added Successfull', {
@@ -49,6 +52,10 @@ const PageProducts = () => {
 			setAddAnimate('');
 		}, 1000);
 	};
+
+	useEffect(() => {
+		dispatch(fetchProducts(section));
+	}, [section]);
 	return (
 		<div>
 			<div className='container w-[80%] mx-auto'>
@@ -58,13 +65,13 @@ const PageProducts = () => {
 					</h3>
 				</div>
 				<div className=' grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 xl:mx-0 lg:mx-5 md:mx-5 mx-5 justify-center'>
-					{itemsData?.data?.slice(0, quantity)?.map((item, index) => (
-						<Fade key={index}>
+					{products?.data?.slice(0, quantity)?.map((item, index) => (
+						<Fade key={item._id}>
 							<div
 								id={index}
 								className={`card w-full bg-base-100 drop-shadow-md rounded-none ${addAnimate[index]}`}
 							>
-								<Link to={`/product-details/${item.id}`}>
+								<Link to={`/product-details/${item._id}`}>
 									<PageItem item={item}></PageItem>
 								</Link>
 								<Link

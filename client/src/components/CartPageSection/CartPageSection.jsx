@@ -94,7 +94,7 @@ const CartPageSection = () => {
 						{/*  select product  */}
 						{products?.map((item, index) => (
 							<AddedCartProducts
-								key={item.id}
+								key={item._id}
 								item={item}
 								productIsCheck={productIsCheck}
 							/>
@@ -126,9 +126,9 @@ const CartPageSection = () => {
 										</td>
 									</tr>
 									<tr>
-										<td className='border p-5 text-lg font-semibold'>Vat</td>
+										<td className='border p-5 text-lg font-semibold'>Vat 5%</td>
 										<td className='border p-5 text-lg font-semibold text-end'>
-											{5}%
+											{subTotal * 0.05}৳
 										</td>
 									</tr>
 									<tr>

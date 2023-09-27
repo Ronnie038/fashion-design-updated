@@ -23,7 +23,7 @@ const ProductCounter = ({ item }) => {
 	};
 
 	useEffect(() => {
-		dispatch(updateQuantity({ id: item?.id, quantity: itemQuantity }));
+		dispatch(updateQuantity({ id: item?._id, quantity: itemQuantity }));
 	}, [itemQuantity]);
 
 	return (

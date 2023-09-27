@@ -8,10 +8,12 @@ const initialCart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Helper function to calculate subtotal and total
 const calculateSubTotalAndTotal = (cart) => {
-	const subTotal = cart.reduce(
-		(total, item) => total + item.price * item.quantity,
-		0
-	);
+	const subTotal = cart.reduce((total, item) => {
+		if (item.offerPrice) {
+			return total + item.offerPrice * item.quantity;
+		}
+		return total + item.regularPrice * item.quantity;
+	}, 0);
 	const total = subTotal + subTotal * 0.05 + DELIVERY_COST;
 	return { total, subTotal };
 };
@@ -27,7 +29,7 @@ const cartSlice = createSlice({
 		addToCart(state, action) {
 			const data = { ...action.payload };
 			const existingItemIndex = state.cart.findIndex(
-				(item) => item.id === data.id
+				(item) => item._id === data._id
 			);
 
 			if (existingItemIndex === -1) {
@@ -56,7 +58,7 @@ const cartSlice = createSlice({
 		},
 		removeSingleItem(state, action) {
 			const itemIdToRemove = action.payload;
-			state.cart = state.cart.filter((item) => item.id !== itemIdToRemove);
+			state.cart = state.cart.filter((item) => item._id !== itemIdToRemove);
 
 			// Update localStorage and totals
 			localStorage.setItem('cart', JSON.stringify(state.cart));
@@ -66,7 +68,7 @@ const cartSlice = createSlice({
 		},
 		updateQuantity(state, action) {
 			const { id, quantity } = action.payload;
-			const itemToUpdate = state.cart.find((item) => item.id === id);
+			const itemToUpdate = state.cart.find((item) => item._id === id);
 
 			if (itemToUpdate) {
 				itemToUpdate.quantity = quantity;

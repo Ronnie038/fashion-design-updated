@@ -51,7 +51,7 @@ exports.getProducts = async (req, res) => {
 		}
 		return res.status(200).json({
 			success: true,
-			data: products,
+			products,
 		});
 	} catch (error) {
 		console.log(error);
@@ -120,52 +120,6 @@ exports.deleteProduct = async (req, res) => {
 		});
 	}
 };
-
-// exports.updateProduct = async (req, res) => {
-// 	try {
-// 		const productId = req.params.productId;
-// 		let updateData;
-// 		let image;
-// 		if (req.files) {
-// 			updateData = JSON.parse(req.body.product); // Updated data from the request body
-// 			const newimageUrls = req.files.map(
-// 				(file) => `${process.env.APP_URL}/images/${file.filename}`
-// 			);
-// 			const imageUrls = [...updateData.imageUrls];
-// 			updateData.imageUrls = [...newimageUrls, imageUrls];
-// 			updateData.image = imageUrls[0];
-// 		} else {
-// 			updateData = req.body;
-// 		}
-
-// 		// Find the product by ID and update it
-// 		const updatedProduct = await Product.findByIdAndUpdate(
-// 			productId,
-// 			updateData,
-// 			{ new: true }
-// 		);
-
-// 		if (!updatedProduct) {
-// 			return res.status(404).json({
-// 				success: false,
-// 				message: 'Product not found',
-// 			});
-// 		}
-
-// 		res.status(200).json({
-// 			success: true,
-// 			message: 'Product updated',
-// 			// data: updatedProduct,
-// 		});
-// 	} catch (error) {
-// 		res.status(500).json({
-// 			success: false,
-// 			message: 'An error occurred while updating the product',
-// 		});
-// 	}
-// };
-
-// const Product = require('../models/Product'); // Import your Product model here
 
 exports.updateProduct = async (req, res) => {
 	try {

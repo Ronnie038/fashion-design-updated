@@ -65,7 +65,7 @@ const AddedCartProducts = ({ item, productIsCheck }) => {
 					</div>
 					<div className='' title='Delete'>
 						<Icon
-							onClick={() => removeSingleProduct(item?.id)}
+							onClick={() => removeSingleProduct(item?._id)}
 							className='cursor-pointer text-3xl text-red-600'
 							icon='fluent-mdl2:delete'
 						/>

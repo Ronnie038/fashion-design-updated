@@ -1,8 +1,8 @@
 import React from 'react';
 
 const PageItem = ({ item }) => {
-	const { id, image, title, price, description } = item;
-
+	const { id, image, title, regularPrice, description } = item;
+	console.log(item);
 	return (
 		<>
 			<figure>
@@ -13,7 +13,7 @@ const PageItem = ({ item }) => {
 					{title}
 				</h2>
 				<p className='text-sm lg:text-base xl:text-lg 2xl:text-xl font-semibold'>
-					{price}৳
+					{item.offerPrice ? item.offerPrice : regularPrice}৳
 				</p>
 				<p className='text-xs lg:text-sm xl:text-base 2xl:text-lg'>
 					{description}
