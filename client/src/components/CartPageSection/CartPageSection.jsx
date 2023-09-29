@@ -17,11 +17,6 @@ const CartPageSection = () => {
 	const [price, setPrice] = useState(null);
 	const [productIsCheck, setProductIsCheck] = useState(false);
 
-	const itemsData = useSelector((state) => {
-		// console.log(state.items.data)
-		return state.items.data;
-	});
-
 	const {
 		cart: products,
 		total,
@@ -142,7 +137,7 @@ const CartPageSection = () => {
 									<tr>
 										<td className='border p-5 text-lg font-semibold'>Total</td>
 										<td className='border p-5 text-lg font-semibold text-end'>
-											{total.toFixed(2)}৳
+											{products.length > 0 ? total.toFixed(2) : 0}৳
 										</td>
 									</tr>
 								</tbody>

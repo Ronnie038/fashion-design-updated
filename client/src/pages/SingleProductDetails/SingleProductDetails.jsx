@@ -103,11 +103,15 @@ const SingleProductDetails = () => {
 								</h2>
 								<div className='flex flex-wrap lg:gap-8 md:gap-5 gap-3 items-center'>
 									<p className='text-xl font-semibold'>
-										<del className='text-[#757575]'>
-											{product?.regularPrice}৳
-										</del>
+										{product?.offerPrice ? (
+											<del className='text-[#757575]'>
+												{product?.regularPrice}৳
+											</del>
+										) : (
+											<ins>{product.regularPrice}</ins>
+										)}
 									</p>
-									{product.offerPercentage && (
+									{product.offerPercentage > 0 && (
 										<>
 											<p className='text-2xl font-semibold'>
 												<ins className='no-underline'>

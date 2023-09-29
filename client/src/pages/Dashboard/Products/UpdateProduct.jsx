@@ -33,14 +33,11 @@ const UpdateProduct = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const form = e.target;
-		setLoading(true);
-		let offerData = {};
-		if (offerPercentage && offerPrice)
-			offerData = { offerPrice, offerPercentage };
+		// setLoading(true);
 
 		const newFormData = {
 			...formData,
-			...offerData,
+
 			freeDelivery,
 			sizes: sizeServices,
 			imageUrls,
@@ -146,7 +143,7 @@ const UpdateProduct = () => {
 
 	// Initialize variables
 	let newPrice = 0;
-	let percentage;
+	let percentage = 0;
 	let discountPrice = 0;
 	const handleDiscount = (e) => {
 		const { name, value } = e.target;
@@ -175,9 +172,12 @@ const UpdateProduct = () => {
 			totalInput.value = Math.round(newPrice);
 
 			// Set values in the formData object (assuming formData is defined elsewhere)
-			formData.discountPrice = Math.round(discountPrice);
-			formData.offerPrice = Math.round(newPrice);
-			formData.offerPercentage = Number(value);
+			setFormData({
+				...formData,
+				['discountPrice']: Math.round(discountPrice),
+				['offerPrice']: Math.round(newPrice),
+				['offerPercentage']: Math.round(value),
+			});
 
 			// Update state variables (setOfferPrice and setOfferPercentage)
 			// Assuming you have functions to update state variables
@@ -191,10 +191,13 @@ const UpdateProduct = () => {
 			// offerPercentageInput.value = percentage.toFixed(2);
 			totalInput.value = Math.round(newPrice);
 
-			// Set values in the formData object (assuming formData is defined elsewhere)
-			formData.discountPrice = Math.round(value);
-			formData.offerPrice = Math.round(newPrice);
-			formData.offerPercentage = Math.round(percentage);
+			// Set values in the formData object (assuming formData is defined
+			setFormData({
+				...formData,
+				['discountPrice']: Math.round(value),
+				['offerPrice']: Math.round(newPrice),
+				['offerPercentage']: Math.round(percentage),
+			});
 
 			// Update state variables (setOfferPrice and setOfferPercentage)
 			// Assuming you have functions to update state variables
@@ -203,13 +206,17 @@ const UpdateProduct = () => {
 		}
 
 		// Check if either offerPercentage or discountPrice is 0 and set newPrice to 0 accordingly
-		if (value == 0) {
+		if (value == 0 || !value) {
 			newPrice = 0;
 			totalInput.value = 0;
 			setOfferPrice(0);
+			setFormData({
+				...formData,
+				['discountPrice']: 0,
+				['offerPrice']: 0,
+				['offerPercentage']: 0,
+			});
 		}
-
-		console.log(formData);
 	};
 
 	return (
@@ -325,6 +332,7 @@ const UpdateProduct = () => {
 										handleInput(e);
 										handleDiscount(e);
 									}}
+									defaultValue={product?.discountPrice}
 									className='border w-full border-purple-200 p-3 mt-3'
 									type='number'
 									name='discountPrice'

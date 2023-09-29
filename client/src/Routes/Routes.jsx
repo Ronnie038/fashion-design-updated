@@ -19,7 +19,7 @@ import ForgetPasswordRequest from '../pages/ForgetPassword/ForgetPasswordRequest
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../pages/Dashboard/Dashboard/Dashboard';
 import DashboardDetails from '../pages/Dashboard/DashboardDetails';
-import Orders from '../pages/Dashboard/Orders';
+import Orders from '../pages/Dashboard/Orders/Orders';
 import Products from '../pages/Dashboard/Products/Products';
 import AddProducts from '../pages/Dashboard/Products/AddProducts';
 import Delivery from '../pages/Dashboard/Delivery';
@@ -33,6 +33,9 @@ import AddCategory from '../pages/Dashboard/Category/AddCategory';
 import Checkout from '../pages/Checkout/Checkout';
 import AdminRoutes from './AdminRoute';
 import UpdateProduct from '../pages/Dashboard/Products/UpdateProduct';
+import Order from '../pages/UserProfile/Order';
+import OrderDetails from '../components/OrderDetails/OrderDetails';
+import UpdateOrder from '../pages/Dashboard/Orders/UpdateOrder';
 
 const router = createBrowserRouter([
 	{
@@ -59,6 +62,10 @@ const router = createBrowserRouter([
 			{
 				path: 'userProfile',
 				element: <UserProfile />,
+			},
+			{
+				path: 'order/:id',
+				element: <OrderDetails />,
 			},
 			{
 				path: 'orderDone',
@@ -119,6 +126,7 @@ const router = createBrowserRouter([
 			},
 		],
 	},
+
 	{
 		path: '/dashboard',
 		element: (
@@ -141,6 +149,10 @@ const router = createBrowserRouter([
 			{
 				path: 'orders',
 				element: <Orders></Orders>,
+			},
+			{
+				path: 'orders/:id',
+				element: <UpdateOrder />,
 			},
 			{
 				path: 'products',
@@ -171,6 +183,10 @@ const router = createBrowserRouter([
 				element: <Faq></Faq>,
 			},
 		],
+	},
+	{
+		path: 'order/:id',
+		element: <OrderDetails />,
 	},
 ]);
 

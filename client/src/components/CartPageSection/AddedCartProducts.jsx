@@ -36,14 +36,18 @@ const AddedCartProducts = ({ item, productIsCheck }) => {
 							</h2>
 							<div className='flex flex-wrap lg:gap-6 md:gap-5 gap-3 items-center'>
 								<p className='text-xl font-semibold'>
-									<del className='text-[#757575]'>41.40৳</del>
+									<del className='text-[#757575]'>
+										{item.discountPrice > 0 && item.discountPrice}
+									</del>
 								</p>
 								<p className='lg:text-xl md:text-xl text-xl font-semibold'>
 									<ins className='no-underline'>{item.price}৳</ins>
 								</p>
-								<h4 className='bg-[#DE2121] px-3 py-1 text-sm text-white font-semibold text-center'>
-									50% Off
-								</h4>
+								{item.offerPercentage > 0 && (
+									<h4 className='bg-[#DE2121] px-3 py-1 text-sm text-white font-semibold text-center'>
+										{Math.round(item?.offerPercentage)}% Off
+									</h4>
+								)}
 							</div>
 							<div className='flex items-center gap-3'>
 								<Rating

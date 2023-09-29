@@ -20,7 +20,7 @@ const Checkout = () => {
 	const foundProducts = [];
 	// const [products, setProducts] = useState([]);
 	const [openModal, setOpenModal] = useState();
-	// const [getAddressModalData, setGetAddressModalData] = useState()
+	// const [userAddressData, setuserAddressData] = useState()
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 	const [paymentMethod, setPaymentMethod] = useState();
 	const [quantity, setQuantity] = useState(1);
@@ -95,7 +95,7 @@ const Checkout = () => {
 		}
 	};
 
-	const getAddressModalData = getToUserAddress();
+	const userAddressData = getToUserAddress();
 
 	return (
 		<div>
@@ -119,10 +119,7 @@ const Checkout = () => {
 											<tr className='border'>
 												<td className='py-5 px-3 font-semibold'>{item.name}</td>
 												<td className='py-5 px-3 font-semibold'>
-													{item.offerPrice
-														? item.offerPrice
-														: item.regularPrice}
-													$
+													{item.price}৳
 												</td>
 												<td className='py-5 px-3 font-semibold'>
 													{item.quantity}
@@ -152,7 +149,7 @@ const Checkout = () => {
 								<div className='flex justify-between items-center'>
 									<h3 className='text-2xl font-bold'>Address</h3>
 									<div>
-										{getAddressModalData ? (
+										{userAddressData ? (
 											<Link>
 												<Icon
 													onClick={() => handleOpenModal()}
@@ -170,26 +167,26 @@ const Checkout = () => {
 										)}
 									</div>
 								</div>
-								{getAddressModalData ? (
+								{userAddressData ? (
 									<>
 										<hr className='mt-2' />
 										<div className='mt-5'>
 											<div className='space-y-5'>
 												<p>
 													<span className='font-medium'>Name:</span>{' '}
-													{getAddressModalData?.name}
+													{userAddressData?.name}
 												</p>
 												<p>
 													<span className='font-medium'>Email:</span>{' '}
-													{getAddressModalData?.email}
+													{userAddressData?.email}
 												</p>
 												<p>
 													<span className='font-medium'>Mobile:</span>{' '}
-													{getAddressModalData?.contactNumber}
+													{userAddressData?.contactNumber}
 												</p>
 												<p>
 													<span className='font-medium'>Address:</span>{' '}
-													{getAddressModalData?.address}
+													{userAddressData?.address}
 												</p>
 											</div>
 										</div>
@@ -301,7 +298,17 @@ const Checkout = () => {
 								</div>
 								<div className='mt-5'>
 									<button
-										onClick={handleOrderConfirm}
+										onClick={() => {
+											const notUserAddress =
+												!userAddressData.name ||
+												!userAddressData.email ||
+												!userAddressData.contactNumber ||
+												!userAddressData.address;
+											if (notUserAddress) {
+												return handleOpenModal();
+											}
+											handleOrderConfirm();
+										}}
 										disabled={!selectedPaymentMethod}
 										className={
 											!selectedPaymentMethod

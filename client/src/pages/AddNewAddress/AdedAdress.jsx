@@ -76,8 +76,9 @@ const AdedAdress = () => {
 				})
 					.then((res) => {
 						if (res.ok) {
-							localStorage.clear();
+							localStorage.removeItem('cart');
 							window.open(`/orderDone`, '_self');
+							window.history.pushState({}, '', '/userProfile');
 						}
 					})
 

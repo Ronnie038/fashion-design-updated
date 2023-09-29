@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../pages/Shared/Navbar/Navbar';
 import Footer from '../pages/Shared/Footer/Footer';
 import { getCategory, getIems } from '../Api/ApiService';
@@ -10,20 +10,30 @@ import ChatOption from '../pages/Home/ChatOption/ChatOption';
 
 const Main = () => {
 	const dispatch = useDispatch();
-	useEffect(() => {
-		// setCategories(data);
-	}, []);
+	const navigagte = useNavigate();
+
+	// const history = useEffect(() => {
+	// 	// setCategories(data);
+	// }, []);
 	useEffect(() => {
 		dispatch(fetchCategories());
 		getIems().then((data) => dispatch(addItems(data)));
 	}, []);
 
 	const location = useLocation();
-	const shouldRenderNavbarAndFooter = location.pathname !== '/';
+	let shouldRenderNavbarAndFooter = location.pathname !== '/';
+	let hiddenInInvoice = location.pathname.includes('order');
+	if (hiddenInInvoice) {
+		shouldRenderNavbarAndFooter = false;
+	}
+	if (location.pathname.includes('orderDone')) {
+		shouldRenderNavbarAndFooter = true;
+	}
 
 	return (
 		<div>
 			{shouldRenderNavbarAndFooter && <Navbar></Navbar>}
+
 			<Outlet></Outlet>
 			<div className='fixed bottom-5 right-5'>
 				<ChatOption></ChatOption>

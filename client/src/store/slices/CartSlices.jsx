@@ -35,6 +35,7 @@ const cartSlice = createSlice({
 			if (existingItemIndex === -1) {
 				// Item does not exist in the cart, add it
 				data.quantity = 1;
+				data.price = data.offerPrice ? data.offerPrice : data.regularPrice;
 				state.cart.push(data);
 			} else {
 				// Item already exists in the cart, update quantity

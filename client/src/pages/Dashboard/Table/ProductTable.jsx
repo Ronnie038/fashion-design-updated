@@ -4,24 +4,8 @@ import image1 from '../../../assets/KidsNewItems/img2.png';
 import icon1 from '../../../assets/Fav icon/Rectangle 284.png';
 import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
-const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
-const ProductTable = () => {
-	const [products, setProduct] = useState([]);
-	// const {Description,category,name,new-price,quantity}=product
-	const [reload, setReload] = useState(false);
 
-	const fetchData = () => {
-		fetch(`${apiUrl}/products/displayProducts`)
-			.then((res) => res.json())
-			.then((data) => {
-				// console.log(data.data);
-				setProduct(data.data);
-			});
-	};
-	//data fecthing
-	useEffect(() => {
-		fetchData();
-	}, [reload]);
+const ProductTable = ({ products, setReload }) => {
 	// ! ====> Delet Product
 	const handleDelete = (id) => {
 		console.log('delet id', id);

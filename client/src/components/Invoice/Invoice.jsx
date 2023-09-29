@@ -16,6 +16,7 @@ const Invoice = ({ order }) => {
 	const handlePrint = () => {
 		window.print();
 	};
+
 	return (
 		<div className='bg-white'>
 			<div className='max-w-screen-2xl mx-auto  p-8 rounded-lg shadow-md border '>
@@ -102,7 +103,7 @@ const Invoice = ({ order }) => {
 						</table>
 					</div>
 					<p className='my-2 font-bold'>Delivery Fee : {order.deliveryFee}</p>
-					<p className='my-2 font-bold'>Vat/Tax 10% : {order.vat}</p>
+					<p className='my-2 font-bold'>Vat/Tax 5% : {order.vat}</p>
 					<div className='mt-6 '>
 						<span className='text-lg  items-center bg-[#006bfa] inline-flex rounded-md  text-white px-3 py-2'>
 							Total:
