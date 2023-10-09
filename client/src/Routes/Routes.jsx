@@ -36,6 +36,7 @@ import UpdateProduct from '../pages/Dashboard/Products/UpdateProduct';
 import Order from '../pages/UserProfile/Order';
 import OrderDetails from '../components/OrderDetails/OrderDetails';
 import UpdateOrder from '../pages/Dashboard/Orders/UpdateOrder';
+import CategoryProducts from '../pages/CategoryProduct/CategoryProducts';
 
 const router = createBrowserRouter([
 	{
@@ -60,8 +61,16 @@ const router = createBrowserRouter([
 				element: <Kids />,
 			},
 			{
+				path: ':section/:subcategory',
+				element: <CategoryProducts />,
+			},
+			{
 				path: 'userProfile',
-				element: <UserProfile />,
+				element: (
+					<PrivateRoute>
+						<UserProfile />
+					</PrivateRoute>
+				),
 			},
 			{
 				path: 'order/:id',
@@ -89,15 +98,15 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/cart',
-				element: (
-					<PrivateRoute>
-						<Cart />
-					</PrivateRoute>
-				),
+				element: <Cart />,
 			},
 			{
 				path: '/checkOut',
-				element: <Checkout />,
+				element: (
+					<PrivateRoute>
+						<Checkout />
+					</PrivateRoute>
+				),
 			},
 			{
 				path: '/product-details/:_id',
@@ -114,7 +123,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/adedAddress',
-				element: <AdedAdress></AdedAdress>,
+				element: (
+					<PrivateRoute>
+						<AdedAdress></AdedAdress>
+					</PrivateRoute>
+				),
 			},
 			{
 				path: '/payment/cancel',

@@ -2,7 +2,7 @@ import React from 'react';
 
 const PageItem = ({ item }) => {
 	const { id, image, title, regularPrice, description } = item;
-	console.log(item);
+	// console.log(item);
 	return (
 		<>
 			<figure>

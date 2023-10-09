@@ -8,10 +8,12 @@ const apiBaseUrl = import.meta.env.VITE_REACT_APP_API_URL;
 // Define your async thunk action to fetch products
 export const fetchProducts = createAsyncThunk(
 	'products/fetchProducts',
-	async (section, { rejectWithValue }) => {
+	async ({ section, subCategory }, { rejectWithValue }) => {
 		try {
 			// Use a template string to include the section parameter
-			const response = await fetch(`${apiBaseUrl}/products?section=${section}`);
+			const response = await fetch(
+				`${apiBaseUrl}/products?section=${section}&&subcategory=${subCategory}`
+			);
 
 			if (!response.ok) {
 				throw new Error('Failed to fetch products');

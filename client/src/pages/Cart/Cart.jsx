@@ -12,7 +12,7 @@ const Cart = () => {
 				<title>UrbanUtopia | Cart</title>
 			</Helmet>
 			<CartPageSection></CartPageSection>
-			<PageProducts />
+			{/* <PageProducts /> */}
 			<DownloadMobile></DownloadMobile>
 		</div>
 	);

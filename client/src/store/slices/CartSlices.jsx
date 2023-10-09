@@ -76,6 +76,7 @@ const cartSlice = createSlice({
 
 				// Update localStorage and totals
 				localStorage.setItem('cart', JSON.stringify(state.cart));
+
 				const { subTotal, total } = calculateSubTotalAndTotal(state.cart);
 				state.subTotal = subTotal;
 				state.total = total;

@@ -28,7 +28,7 @@ function CustomStepper(props) {
 const Order = ({ order }) => {
 	const [activeStep, setActiveStep] = useState(0);
 	const [activeText, setActiveText] = useState('');
-	console.log(order);
+	// console.log(order);
 	const { orderStatus } = order;
 	const steps = [
 		{ label: 'Processing' },

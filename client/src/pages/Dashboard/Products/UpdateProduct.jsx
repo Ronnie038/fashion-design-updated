@@ -28,7 +28,7 @@ const UpdateProduct = () => {
 
 	// dynamic category data
 	const categories = useSelector((state) => state.categories.data);
-	console.log(!selectedImages.length);
+	// console.log(!selectedImages.length);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -59,7 +59,7 @@ const UpdateProduct = () => {
 			try {
 				const res = await fetch(`${apiUrl}/products/${id}`);
 				const data = await res.json();
-				console.log(data);
+				// console.log(data);
 				if (res.ok) {
 					setProduct(data);
 					setFreeDelivery(data.freeDelivery);
@@ -101,7 +101,7 @@ const UpdateProduct = () => {
 
 	const handleImageChange = (e) => {
 		let files = e.target.files;
-		console.log({ files });
+		// console.log({ files });
 		const imageList = [];
 		const newLength = files.length + selectedImages.length;
 
@@ -120,7 +120,7 @@ const UpdateProduct = () => {
 	const handleCategoryChange = (event) => {
 		const newIndex = event.target.selectedIndex;
 
-		console.log({ newIndex });
+		// console.log({ newIndex });
 		setSelectedCategoryIndex(newIndex);
 		setSelectedSubcategoryIndex(0); // Reset subcategory index when category changes
 	};
@@ -400,7 +400,7 @@ const UpdateProduct = () => {
 							/>
 						</div>
 						<div className='flex w-full gap-6 mt-6'>
-							<div className='w-1/2'>
+							{/* <div className='w-1/2'>
 								<label
 									htmlFor='freeDelivery'
 									className='font-semibold cursor-pointer'
@@ -418,7 +418,7 @@ const UpdateProduct = () => {
 									placeholder='Free Delivery'
 									id='freeDelivery'
 								/>
-							</div>
+							</div> */}
 						</div>
 					</div>
 
@@ -579,7 +579,7 @@ const UpdateProduct = () => {
 								</div>
 							</div>
 						</div>
-						<div className='mt-6'>
+						{/* <div className='mt-6'>
 							<div className='flex gap-8 items-center'>
 								<label className='font-semibold cursor-pointer '>
 									Create Size Guide
@@ -627,7 +627,7 @@ const UpdateProduct = () => {
 									</span>
 								))}
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div className='mt-6'>

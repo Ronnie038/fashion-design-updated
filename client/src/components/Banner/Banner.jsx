@@ -86,7 +86,7 @@ const Banner = () => {
 										</div>
 									</div>
 								</div>
-								<ul className='text-[#CCCCCC] lg:space-y-3 space-y-2 lg:mt-8 mt-6 sm:mt-4 xs:mt-4 text-lg sm:text-base xs:text-base w-full'>
+								{/* <ul className='text-[#CCCCCC] lg:space-y-3 space-y-2 lg:mt-8 mt-6 sm:mt-4 xs:mt-4 text-lg sm:text-base xs:text-base w-full'>
 									<li>
 										<Link to='/' className='lg:text-xl text-md'>
 											Newest
@@ -107,7 +107,7 @@ const Banner = () => {
 											Best Rated
 										</Link>
 									</li>
-								</ul>
+								</ul> */}
 							</div>
 							<div className='w-12/12 row-span-3 col-span-12 relative'>
 								<div className=''>

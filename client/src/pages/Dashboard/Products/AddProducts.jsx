@@ -37,7 +37,7 @@ const AddProducts = () => {
 		selectedImages.forEach((image) => {
 			formDataObj.append('images', image);
 		});
-		console.log(formDataObj);
+		// console.log(formDataObj);
 		createProduct(formDataObj, setLoading, toast, form, selectedImages);
 	};
 
@@ -67,7 +67,7 @@ const AddProducts = () => {
 
 	const handleImageChange = (e) => {
 		let files = e.target.files;
-		console.log({ files });
+		// console.log({ files });
 		const imageList = [];
 		const newLength = files.length + selectedImages.length;
 
@@ -86,7 +86,7 @@ const AddProducts = () => {
 	const handleCategoryChange = (event) => {
 		const newIndex = event.target.selectedIndex;
 
-		console.log({ newIndex });
+		// console.log({ newIndex });
 		setSelectedCategoryIndex(newIndex);
 		setSelectedSubcategoryIndex(0); // Reset subcategory index when category changes
 	};
@@ -167,7 +167,7 @@ const AddProducts = () => {
 			setOfferPrice(0);
 		}
 
-		console.log(formData);
+		// console.log(formData);
 	};
 
 	return (
@@ -341,7 +341,7 @@ const AddProducts = () => {
 							/>
 						</div>
 						<div className='flex w-full gap-6 mt-6'>
-							<div className='w-1/2'>
+							{/* <div className='w-1/2'>
 								<label
 									htmlFor='freeDelivery'
 									className='font-semibold cursor-pointer'
@@ -358,7 +358,7 @@ const AddProducts = () => {
 									placeholder='Free Delivery'
 									id='freeDelivery'
 								/>
-							</div>
+							</div> */}
 						</div>
 					</div>
 
@@ -503,7 +503,7 @@ const AddProducts = () => {
 								</div>
 							</div>
 						</div>
-						<div className='mt-6'>
+						{/* <div className='mt-6'>
 							<div className='flex gap-8 items-center'>
 								<label className='font-semibold cursor-pointer '>
 									Create Size Guide
@@ -551,7 +551,7 @@ const AddProducts = () => {
 									</span>
 								))}
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div className='mt-6'>

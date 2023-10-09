@@ -23,7 +23,7 @@ const SignUp = () => {
 		formState: { errors },
 	} = useForm();
 	const onSubmit = (data) => {
-		console.log(data);
+		// console.log(data);
 
 		// password confirm validation
 		if (data.password !== data.confirmPassword)

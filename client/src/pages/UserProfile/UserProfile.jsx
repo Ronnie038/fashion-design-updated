@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import MainLoading from '../../components/Loading/MainLoading';
 import { useDispatch } from 'react-redux';
 import Order from './Order';
+import toast from 'react-hot-toast';
+import { fetchUserProfile } from '../../store/slices/UserSlices';
 const apiBaseUrl = import.meta.env.VITE_REACT_APP_API_URL;
 const UserProfile = () => {
 	const dispatch = useDispatch();
@@ -41,48 +43,50 @@ const UserProfile = () => {
 			formDataObj.append('image', image);
 		}
 
-		console.log(data);
+		// console.log(profileData);
 
-		// try {
-		// 	let response;
-		// 	if (image && image.name) {
-		// 		response = await fetch(`${apiBaseUrl}/user/${user?._id}`, {
-		// 			method: 'PUT',
-		// 			body: formDataObj,
-		// 			credentials: 'include',
-		// 		});
-		// 	} else {
-		// 		response = await fetch(`${apiBaseUrl}/user/${user?._id}`, {
-		// 			method: 'PUT',
-		// 			headers: {
-		// 				'Content-Type': 'application/json',
-		// 			},
-		// 			body: JSON.stringify(profileData),
-		// 			credentials: 'include',
-		// 		});
-		// 	}
+		try {
+			let response;
+			if (image && image.name) {
+				response = await fetch(`${apiBaseUrl}/user/${user?._id}`, {
+					method: 'PUT',
+					body: formDataObj,
+					credentials: 'include',
+				});
+			} else {
+				response = await fetch(`${apiBaseUrl}/user/${user?._id}`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(profileData),
+					credentials: 'include',
+				});
+			}
 
-		// 	const data = await response.json();
+			const data = await response.json();
 
-		// 	if (response.ok) {
-		// 		reset();
-		// 		toast.success('Profile updated successfully');
-		// 		// Reset form and image state or perform other actions
-		// 	} else {
-		// 		alert('Update failed');
-		// 		console.error('Update failed');
-		// 	}
-		// } catch (error) {
-		// 	console.error('Error uploading data and images:', error);
-		// } finally {
-		// 	setLoading(false);
-		// }
+			if (response.ok) {
+				reset();
+				toast.success('Profile updated successfully');
+				setOpenEditModal(false);
+				dispatch(fetchUserProfile());
+				// Reset form and image state or perform other actions
+			} else {
+				alert('Update failed');
+				console.error('Update failed');
+			}
+		} catch (error) {
+			console.error('Error uploading data and images:', error);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const handleInputChange = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
-		setUserData({ ...profileData, [name]: value });
+		setProfileData({ ...profileData, [name]: value });
 	};
 
 	useEffect(() => {
@@ -93,7 +97,6 @@ const UserProfile = () => {
 			.then((data) => setOrders(data.data));
 	}, [status]);
 
-	console.log(user);
 	if (status === 'loading') return <MainLoading />;
 
 	return (
@@ -103,11 +106,7 @@ const UserProfile = () => {
 					<div className=''>
 						<div className='rounded-full h-72 w-72 overflow-hidden'>
 							{user.image ? (
-								<img
-									src={user?.image}
-									alt='Image'
-									className='object-cover object-center h-full w-full'
-								/>
+								<img src={user?.image} alt='Image' className='w-full h-full' />
 							) : (
 								<Icon icon='zondicons:user' className=' h-full w-full' />
 							)}
@@ -309,6 +308,7 @@ const UserProfile = () => {
 													onChange={handleInputChange}
 													type='text'
 													name='name'
+													defaultValue={user.name}
 													placeholder='Your Name'
 													className='input placeholder-black input-bordered h-16 rounded-none border-black text-black text-xl'
 												/>
@@ -322,6 +322,7 @@ const UserProfile = () => {
 												<input
 													type='email'
 													name='email'
+													defaultValue={user.email}
 													onChange={handleInputChange}
 													placeholder='Your Email'
 													className='input placeholder-black input-bordered h-16 rounded-none border-black text-black text-xl'
@@ -337,6 +338,7 @@ const UserProfile = () => {
 													onChange={handleInputChange}
 													type='tel'
 													name='phone'
+													defaultValue={user.phone}
 													placeholder='eg: 01********125'
 													className='input placeholder-black input-bordered h-16 rounded-none border-black text-black text-xl'
 												/>
@@ -344,7 +346,7 @@ const UserProfile = () => {
 											<div className='form-control mt-10 lg:ml-auto'>
 												<input
 													type='submit'
-													value='Save'
+													value='Update'
 													className='btn px-16 bg-[#0C4E67] text-white mt-4 normal-case text-[16px] h-16 rounded-none hover:bg-[#3B95B0]'
 												/>
 											</div>

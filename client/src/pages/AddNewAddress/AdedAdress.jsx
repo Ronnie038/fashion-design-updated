@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import swal from 'sweetalert';
 import { LoaderIcon } from 'react-hot-toast';
 import Loading from '../../components/Loading/Loading';
+import cashOnDeliveryImg from '../../assets/icons/PaymentIcons/img1.png';
 
 const apiBaseUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
@@ -38,8 +39,8 @@ const AdedAdress = () => {
 	} = useSelector((state) => {
 		return state.cartItems;
 	});
-	const getAddressModalData = getToUserAddress();
-	const [order, setOrder] = useState({ ...getAddressModalData });
+	const userAddressData = getToUserAddress();
+	const [order, setOrder] = useState({ ...userAddressData });
 
 	const orderNow = async (e) => {
 		e.preventDefault();
@@ -56,7 +57,7 @@ const AdedAdress = () => {
 		order.deliveryFee = 100;
 
 		e.preventDefault();
-		console.log(order);
+		// console.log(order);
 
 		swal({
 			title: 'Are you sure?',
@@ -126,7 +127,7 @@ const AdedAdress = () => {
 										<div className='flex justify-between items-center'>
 											<h3 className='text-2xl font-bold'>Address</h3>
 											<div>
-												{getAddressModalData ? (
+												{userAddressData ? (
 													<Link>
 														<Icon
 															onClick={() => handleOpenModal()}
@@ -144,7 +145,7 @@ const AdedAdress = () => {
 												)}
 											</div>
 										</div>
-										{getAddressModalData ? (
+										{userAddressData ? (
 											<>
 												<hr className='mt-2' />
 												<div className='mt-5'>
@@ -163,7 +164,15 @@ const AdedAdress = () => {
 														</p>
 														<p>
 															<span className='font-medium'>Address:</span>{' '}
-															{getAddressModalData?.address}
+															{userAddressData?.address}
+														</p>
+														<p>
+															<span className='font-medium'>Area:</span>{' '}
+															{userAddressData?.area}
+														</p>
+														<p>
+															<span className='font-medium'>City:</span>{' '}
+															{userAddressData?.city}
 														</p>
 													</div>
 												</div>
@@ -198,13 +207,13 @@ const AdedAdress = () => {
 															checked
 														/>
 														<label
-															for='nagad'
+															htmlFor='nagad'
 															className='peer-checked/draft:text-sky-500 text-xl font-medium flex items-center gap-5'
 														>
-															{paymentMethod}
+															Cash On Delivery
 															<div className=''>
 																<img
-																	src={paymentImage}
+																	src={cashOnDeliveryImg}
 																	className='w-full'
 																	alt=''
 																/>

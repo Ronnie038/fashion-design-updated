@@ -68,7 +68,7 @@ const getSingleProduct = async (id, setProduct, setImages) => {
 		const res = await fetch(`${apiUrl}/products/${id}`);
 		const data = await res.json();
 		if (res.ok) {
-			console.log(data);
+			// console.log(data);
 			setProduct(data);
 			const images = data?.imageUrls?.map((image) => {
 				return { original: image, thumbnail: image };

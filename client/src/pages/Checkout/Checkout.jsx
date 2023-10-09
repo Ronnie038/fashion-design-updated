@@ -11,6 +11,7 @@ import AddressModal from '../../components/AddressModal/AddressModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getToUserAddress } from '../../utilities/fakedb';
 import { removeSingleItem } from '../../store/slices/CartSlices';
+import cashOnDeliveryImg from '../../assets/icons/PaymentIcons/img1.png';
 
 const Checkout = () => {
 	const user = true;
@@ -188,6 +189,14 @@ const Checkout = () => {
 													<span className='font-medium'>Address:</span>{' '}
 													{userAddressData?.address}
 												</p>
+												<p>
+													<span className='font-medium'>Area:</span>{' '}
+													{userAddressData?.area}
+												</p>
+												<p>
+													<span className='font-medium'>City:</span>{' '}
+													{userAddressData?.city}
+												</p>
 											</div>
 										</div>
 									</>
@@ -198,7 +207,7 @@ const Checkout = () => {
 
 							{/* summery  */}
 							<div className='row-span-3'>
-								<div className='flex mb-5'>
+								{/* <div className='flex mb-5'>
 									<input
 										type='text'
 										placeholder='Please Enter Coupon'
@@ -207,7 +216,7 @@ const Checkout = () => {
 									<button className='bg-[#0C4E67] lg:w-5/12 w-8/12 text-white py-3 px-3 font-semibold'>
 										Add Coupon
 									</button>
-								</div>
+								</div> */}
 								<table className='border w-full'>
 									<tr>
 										<th className='p-5 text-2xl' colSpan={2}>
@@ -252,7 +261,7 @@ const Checkout = () => {
 												Total
 											</td>
 											<td className='border p-5 text-lg font-semibold text-end'>
-												{total.toFixed(2)}৳
+												{products.length > 0 ? total.toFixed(2) : 0}৳
 											</td>
 										</tr>
 									</tbody>
@@ -283,7 +292,7 @@ const Checkout = () => {
 														{method.paymentMethodName}
 														<div className=''>
 															<img
-																src={method.image}
+																src={cashOnDeliveryImg}
 																className='w-full'
 																alt=''
 															/>
@@ -303,16 +312,19 @@ const Checkout = () => {
 												!userAddressData.name ||
 												!userAddressData.email ||
 												!userAddressData.contactNumber ||
-												!userAddressData.address;
+												!userAddressData.address ||
+												!userAddressData.area ||
+												!userAddressData.city;
+
 											if (notUserAddress) {
 												return handleOpenModal();
 											}
 											handleOrderConfirm();
 										}}
-										disabled={!selectedPaymentMethod}
+										disabled={!selectedPaymentMethod || products.length == 0}
 										className={
-											!selectedPaymentMethod
-												? `w-full px-8 text-xl font-semibold py-3 bg-[#0C4E67] bg-opacity-50 text-white`
+											!selectedPaymentMethod || products.length == 0
+												? `w-full px-8 text-xl font-semibold py-3 bg-[#0C4E67] bg-opacity-50 cursor-not-allowed text-white`
 												: `w-full px-8 text-xl font-semibold py-3 bg-[#0C4E67] text-white`
 										}
 									>

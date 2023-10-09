@@ -10,7 +10,7 @@ import { addToCart } from '../../store/slices/CartSlices';
 import 'animate.css';
 import { fetchProducts } from '../../store/slices/productsSlices';
 
-const PageProducts = ({ section }) => {
+const PageProducts = ({ section, subCategory }) => {
 	const user = true;
 	const dispatch = useDispatch();
 	// const [items, setItems] = useState([]);
@@ -21,6 +21,7 @@ const PageProducts = ({ section }) => {
 	const itemsData = useSelector((state) => {
 		return state.items;
 	});
+	console.log(subCategory);
 
 	const products = useSelector((state) => state.products);
 	console.log(products);
@@ -38,7 +39,7 @@ const PageProducts = ({ section }) => {
 
 		dispatch(addToCart(item));
 		const newAddAnimate = [...addAnimate];
-		console.log(addAnimate);
+		// console.log(addAnimate);
 
 		newAddAnimate[index] = 'animate__animated animate__fadeOutTopRight z-40';
 
@@ -54,8 +55,8 @@ const PageProducts = ({ section }) => {
 	};
 
 	useEffect(() => {
-		dispatch(fetchProducts(section));
-	}, [section]);
+		dispatch(fetchProducts({ section, subCategory }));
+	}, [section, subCategory]);
 	return (
 		<div>
 			<div className='container w-[80%] mx-auto'>

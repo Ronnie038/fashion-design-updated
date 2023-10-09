@@ -15,7 +15,7 @@ const ProductCounter = ({ item }) => {
 			return;
 		}
 		setItemQuantity((prevState) => prevState - 1);
-		console.log(itemQuantity);
+		// console.log(itemQuantity);
 	};
 
 	const handleIncrement = () => {

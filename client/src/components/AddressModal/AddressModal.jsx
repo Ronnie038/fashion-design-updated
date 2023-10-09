@@ -122,18 +122,34 @@ const AddressModal = ({ setOpenModal, setGetAddressModalData }) => {
 										className='input placeholder-black input-bordered h-16 rounded-none border-black text-black text-xl'
 									/>
 								</div>
-								{/* <div className="form-control">
-                                    <label className="label px-0">
-                                        <span className="label-text text-xl font-medium">Area*</span>
-                                    </label>
-                                    <input type="text" {...register("area")} required placeholder="Your Area" className="input placeholder-black input-bordered h-16 rounded-none border-black text-black text-xl" />
-                                </div>
-                                <div className="form-control">
-                                    <label className="label px-0">
-                                        <span className="label-text text-xl font-medium">City*</span>
-                                    </label>
-                                    <input type="text" {...register("city")} required placeholder="Your City" className="input placeholder-black input-bordered h-16 rounded-none border-black text-black text-xl" />
-                                </div> */}
+								<div className='form-control'>
+									<label className='label px-0'>
+										<span className='label-text text-xl font-medium'>
+											Area*
+										</span>
+									</label>
+									<input
+										type='text'
+										name='area'
+										required
+										placeholder='area'
+										className='input placeholder-black input-bordered h-16 rounded-none border-black text-black text-xl'
+									/>
+								</div>
+								<div className='form-control'>
+									<label className='label px-0'>
+										<span className='label-text text-xl font-medium'>
+											City*
+										</span>
+									</label>
+									<input
+										type='text'
+										name='city'
+										required
+										placeholder='Your Address'
+										className='input placeholder-black input-bordered h-16 rounded-none border-black text-black text-xl'
+									/>
+								</div>
 								<div className='form-control mt-10 lg:ml-auto'>
 									<input
 										type='submit'

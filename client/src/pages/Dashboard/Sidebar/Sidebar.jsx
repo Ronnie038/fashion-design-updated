@@ -30,16 +30,16 @@ const Sidebar = () => {
 			link: 'addcategories',
 			icon: 'streamline:shopping-bag-hand-bag-2-shopping-bag-purse-goods-item-products',
 		},
-		{
-			title: 'Delivery & Return',
-			link: 'delivery',
-			icon: 'iconoir:delivery-truck',
-		},
-		{
-			title: 'Contact Details',
-			link: 'contact',
-			icon: 'ri:contacts-fill',
-		},
+		// {
+		// 	title: 'Delivery & Return',
+		// 	link: 'delivery',
+		// 	icon: 'iconoir:delivery-truck',
+		// },
+		// {
+		// 	title: 'Contact Details',
+		// 	link: 'contact',
+		// 	icon: 'ri:contacts-fill',
+		// },
 	];
 	return (
 		<div className='bg-[#0C4E67] xl:min-h-screen xl:w-96 lg:w-full md:w-full w-full'>

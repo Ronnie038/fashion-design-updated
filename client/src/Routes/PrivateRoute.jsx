@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import { Navigate, redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate, redirect, useLocation } from 'react-router-dom';
+import Loading from '../components/Loading/Loading';
 
-const PrivateRoute = ({children}) => {
-    const [user, setUser] = useState(true);
+const PrivateRoute = ({ children }) => {
+	const userData = useSelector((state) => state.user);
 
-    if(user){
-        return children;
-    }
-    return <Navigate to='/login'></Navigate>
+	const { user, status, error } = userData;
+	const location = useLocation();
+	if (status === 'loading') {
+		return <Loading />;
+	}
+
+	if (user._id) {
+		return children;
+	}
+	return <Navigate to='/login' state={{ from: location }} replace></Navigate>;
 };
 
 export default PrivateRoute;

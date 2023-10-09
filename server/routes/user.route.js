@@ -31,7 +31,7 @@ router.get(
 router.get(
 	'/facebook/callback',
 	passport.authenticate('facebook', {
-		successRedirect: `${process.env.CLIENT_URL}/login`,
+		successRedirect: `${process.env.CLIENT_URL}/men`,
 		failureRedirect: '/api/v1/user/login/failed',
 	})
 );

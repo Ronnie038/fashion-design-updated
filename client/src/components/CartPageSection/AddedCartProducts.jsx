@@ -13,7 +13,7 @@ const AddedCartProducts = ({ item, productIsCheck }) => {
 		dispatch(removeSingleItem(id));
 	};
 
-	console.log({ item });
+	// console.log({ item });
 	return (
 		<>
 			<div className='border p-5 mt-10 flex lg:flex-nowrap md:flex-wrap flex-wrap items-center gap-5 justify-between'>

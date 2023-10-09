@@ -41,7 +41,7 @@ const OrderList = ({ order }) => {
 
 	const date = new Date();
 
-	console.log(statusColor);
+	// console.log(statusColor);
 
 	return (
 		<>

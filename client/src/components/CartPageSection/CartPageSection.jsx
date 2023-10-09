@@ -12,11 +12,11 @@ import AddedCartProducts from './AddedCartProducts';
 import { removeAll } from '../../store/slices/CartSlices';
 
 const CartPageSection = () => {
-	const user = true;
 	const dispatch = useDispatch();
 	const [price, setPrice] = useState(null);
 	const [productIsCheck, setProductIsCheck] = useState(false);
-
+	const userData = useSelector((state) => state.user);
+	const { user, status, error } = userData;
 	const {
 		cart: products,
 		total,
@@ -151,17 +151,31 @@ const CartPageSection = () => {
 							>
 								Return Shop
 							</Link>
-							{products?.length ? (
+							{products?.length > 0 && user._id ? (
 								<Link
 									to='/checkOut'
-									className='btn rounded-none  lg:w-52 h-14 text-xl border-0 bg-[#0C4E67] hover:bg-[#3B95B0] text-white normal-case'
+									className='btn rounded-none lg:w-52 h-14 text-xl border-0 bg-[#0C4E67] hover:bg-[#3B95B0] text-white normal-case'
 								>
 									Check Out
 								</Link>
 							) : (
-								<Link className='btn rounded-none  lg:w-52 h-14 text-xl border-0 bg-[#0C4E67] bg-opacity-50 cursor-not-allowed hover:bg-[#3B95B0] text-white normal-case'>
-									Check Out
-								</Link>
+								<div>
+									{!user._id ? (
+										<>
+											<p className='-mt-5'>Please Login to proceed further</p>
+											<Link to='/login' className='btn bg-red-400 text-white'>
+												Login
+											</Link>
+										</>
+									) : (
+										<button
+											className='btn rounded-none lg:w-52 h-14 text-xl border-0 bg-[#0C4E67] bg-opacity-50 cursor-not-allowed hover:bg-[#3B95B0] text-white normal-case'
+											disabled
+										>
+											Check Out
+										</button>
+									)}
+								</div>
 							)}
 						</div>
 					</div>

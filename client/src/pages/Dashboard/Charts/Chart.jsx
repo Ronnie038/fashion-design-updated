@@ -39,7 +39,7 @@ const Chart = () => {
 		};
 	}, []);
 
-	console.log(divWidth);
+	// console.log(divWidth);
 	const data = [
 		{
 			name: 'Jan',

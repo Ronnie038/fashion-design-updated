@@ -72,7 +72,7 @@ const logOut = () => {
 			return res.json();
 		})
 		.then((data) => {
-			console.log(data);
+			// console.log(data);
 			window.open('/login', '_self');
 		})
 		.catch((error) => console.log(error));
@@ -81,10 +81,10 @@ const logOut = () => {
 const getProfile = () => {};
 
 const googleLogin = () => {
-	window.open('http://localhost:5000/api/v1/user/google/callback', '_self');
+	window.open(`${apiUrl}/user/google/callback`, '_self');
 };
 const facebookLogin = () => {
-	window.open('http://localhost:5000/api/v1/user/facebook/callback', '_self');
+	window.open(`${apiUrl}/user/facebook/callback`, '_self');
 };
 
 export { userRegister, signIn, googleLogin, facebookLogin, getProfile, logOut };

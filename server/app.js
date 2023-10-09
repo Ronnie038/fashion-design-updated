@@ -4,39 +4,34 @@ const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
 
+require('./config/passport');
 const app = express();
 
 // Middleware
 app.use('/images', express.static('images'));
-try {
-	app.use(express.urlencoded({ extended: true }));
-	app.use(express.json());
-	app.use(cookieParser());
 
-	app.use(
-		session({
-			secret: process.env.ACCESS_TOKEN_SECRET, // Change this to a secure secret key
-			resave: false,
-			saveUninitialized: true,
-			cookie: {
-				secure: true, // Set to true in a production environment with HTTPS
-				httpOnly: true,
-				domain:
-					'https://it-product-client.netlify.app/login' ||
-					'http://localhost:5173/login', // Corrected domain format
-				expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-				path: 'login',
-			},
-		})
-	);
-} catch (error) {
-	console.error('Middleware setup error:', error);
-}
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
-// console.log(session());
+app.use(
+	session({
+		secret: process.env.ACCESS_TOKEN_SECRET, // Change this to a secure secret key
+		resave: false,
+		saveUninitialized: true,
+		cookie: {
+			secure: false, // Set to true in a production environment with HTTPS
+			httpOnly: true,
+			// domain:'hosted domain url',
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+			expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+			path: '/',
+		},
+	})
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 let allowedOrigins = [];
 
@@ -80,9 +75,9 @@ app.use('/api/v1/banner', bannerRoutes);
 app.use('/api/v1/category', categoryRoutes);
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-	console.error(err.stack);
-	res.status(500).send('Something broke!');
-});
+// app.use((err, req, res, next) => {
+// 	console.error(err.stack);
+// 	res.status(500).send('Something broke!');
+// });
 
 module.exports = app;

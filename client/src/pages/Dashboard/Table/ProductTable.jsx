@@ -4,7 +4,7 @@ import image1 from '../../../assets/KidsNewItems/img2.png';
 import icon1 from '../../../assets/Fav icon/Rectangle 284.png';
 import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
-
+const apiBaseUrl = import.meta.env.VITE_REACT_APP_API_URL;
 const ProductTable = ({ products, setReload }) => {
 	// ! ====> Delet Product
 	const handleDelete = (id) => {
@@ -17,14 +17,13 @@ const ProductTable = ({ products, setReload }) => {
 			dangerMode: true,
 		}).then((willDelete) => {
 			if (willDelete) {
-				fetch(`${apiUrl}/products/${id}`, {
+				fetch(`${apiBaseUrl}/products/${id}`, {
 					method: 'DELETE',
 					credentials: 'include',
 				})
 					.then((res) => res.json())
 					.then((result) => {
 						if (result.success) {
-							fetchData();
 							setReload((prev) => !prev);
 							console.log(reload);
 						}

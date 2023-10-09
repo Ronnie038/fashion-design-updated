@@ -5,12 +5,15 @@ exports.getProductService = async (req) => {
 		// console.log(req.query);
 
 		const category = req.query.section; // Get category from query
+		const subcategory = req.query.subcategory;
 		// const maxPrice = req.query.maxPrice; // Get maxPrice from query
 
 		// Build query based on criteria
 
 		const query = {};
+		if (subcategory !== 'undefined') query.subcategory = subcategory;
 		if (category) query.category = category;
+
 		const products = await Product.find(query);
 		return products;
 	} catch (error) {

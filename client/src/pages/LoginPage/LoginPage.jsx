@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import DownloadMobile from '../../components/DownloadMobile/DownloadMobile';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { Fade } from 'react-awesome-reveal';
-import { signIn } from '../../Api/auth';
+import { facebookLogin, googleLogin, signIn } from '../../Api/auth';
 import { useDispatch } from 'react-redux';
 
 import Loading from '../../components/Loading/Loading';
@@ -16,7 +16,9 @@ const LoginPage = () => {
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(false); // Initialize loading as true
 	// from handle
+	const location = useLocation();
 	const navigate = useNavigate();
+	const from = location.state?.from?.pathname || '/men';
 
 	const [error, setError] = useState('');
 	const {
@@ -25,7 +27,7 @@ const LoginPage = () => {
 		formState: { errors },
 	} = useForm();
 	const onSubmit = async (data) => {
-		console.log(data);
+		// console.log(data);
 		setError('');
 		setLoading(true);
 		try {
@@ -37,7 +39,7 @@ const LoginPage = () => {
 			}
 			if (res.ok) {
 				dispatch(addUser(resData.data.user));
-				navigate('/', { replace: true });
+				navigate(from, { replace: true });
 				toast.success('successfully logged in');
 			}
 		} catch (error) {
@@ -145,7 +147,10 @@ const LoginPage = () => {
 									</div>
 									<div className='flex flex-wrap gap-5 justify-between  my-8'>
 										<Link className='btn bg-transparent rounded-none w-full lg:w-auto border border-black'>
-											<div className='flex items-center gap-2'>
+											<div
+												onClick={() => googleLogin()}
+												className='flex items-center gap-2'
+											>
 												<Icon
 													icon='entypo-social:google'
 													className='text-white bg-red-600 rounded-full p-2 text-3xl'
@@ -154,7 +159,10 @@ const LoginPage = () => {
 											</div>
 										</Link>
 										<Link className='btn bg-transparent border-1 rounded-none w-full lg:w-auto border border-black'>
-											<div className='flex items-center gap-2'>
+											<div
+												onClick={() => facebookLogin()}
+												className='flex items-center gap-2'
+											>
 												<Icon
 													icon='ic:baseline-facebook'
 													className='text-3xl text-[#1877F2]'

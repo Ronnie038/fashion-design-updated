@@ -4,13 +4,15 @@ import { useSelector } from 'react-redux';
 import HoverCategory from './HoverCategory';
 const HoverCategories = ({ categoryName }) => {
 	// const [categories, setCategories] = useState([]);
+	// console.log(categoryName);
 	const [quantity, setQuantity] = useState(5);
 
 	const categories = useSelector((state) => state.categories);
 	// console.log(categories);
-	const filteredCategory = categories?.data?.find((category) =>
-		category.name?.toLowerCase().includes(categoryName?.toLowerCase())
+	const filteredCategory = categories?.data?.find(
+		(category) => category.name?.toLowerCase() === categoryName?.toLowerCase()
 	);
+
 	return (
 		<div className='container mx-auto my-10'>
 			<div className='bg-white mt-10'>

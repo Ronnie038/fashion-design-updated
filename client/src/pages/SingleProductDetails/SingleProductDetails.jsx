@@ -22,7 +22,7 @@ const SingleProductDetails = () => {
 	const user = true;
 	const dispatch = useDispatch();
 	const { _id } = useParams();
-	const [singleItemDetails, setSingleItemDetails] = useState([]);
+	const [singleItemDetails, setSingleItemDetails] = useState({});
 	const [product, setProduct] = useState({});
 	const [images, setImages] = useState([]);
 	const [cart, setCart] = useState([]);
@@ -44,9 +44,9 @@ const SingleProductDetails = () => {
 	//   console.log("cart");
 	// };
 
-	useEffect(() => {
-		getSingleItem(_id).then((singleData) => setSingleItemDetails(singleData));
-	}, []);
+	// useEffect(() => {
+	// 	getSingleItem(_id).then((singleData) => setSingleItemDetails(singleData));
+	// }, []);
 
 	// toastify
 
@@ -69,13 +69,13 @@ const SingleProductDetails = () => {
 	};
 
 	const handleAddToCart = (item) => {
-		dispatch(addToCart(singleItemDetails));
+		dispatch(addToCart(item));
 		if (user) {
 			notify();
 		}
 	};
 
-	console.log(images);
+	// console.log(images);
 
 	return (
 		<div>
@@ -105,7 +105,7 @@ const SingleProductDetails = () => {
 									<p className='text-xl font-semibold'>
 										{product?.offerPrice ? (
 											<del className='text-[#757575]'>
-												{product?.regularPrice}৳
+												{Math.round(product?.regularPrice)}৳
 											</del>
 										) : (
 											<ins>{product.regularPrice}</ins>
@@ -115,11 +115,11 @@ const SingleProductDetails = () => {
 										<>
 											<p className='text-2xl font-semibold'>
 												<ins className='no-underline'>
-													{product?.offerPrice}৳
+													{Math.round(product?.offerPrice)}৳
 												</ins>
 											</p>
 											<h4 className='bg-[#DE2121] px-3 py-1 text-sm text-white font-semibold text-center'>
-												{product.offerPercentage}% Off
+												{Math.round(product.offerPercentage)}% Off
 											</h4>
 										</>
 									)}
@@ -128,7 +128,7 @@ const SingleProductDetails = () => {
 									</div> */}
 								</div>
 								<div className='flex items-center gap-3'>
-									<Rating
+									{/* <Rating
 										readonly
 										placeholderRating={4.5}
 										emptySymbol={<Icon icon='gridicons:star-outline' />}
@@ -136,7 +136,7 @@ const SingleProductDetails = () => {
 										fullSymbol={<Icon icon='ic:baseline-star-half' />}
 										className='text-2xl text-[#0C4E67]'
 									></Rating>
-									<span className='text-xs font-medium'>{`( 4.5 Rating )`}</span>
+									<span className='text-xs font-medium'>{`( 4.5 Rating )`}</span> */}
 								</div>
 								<hr />
 								<div className='space-y-4'>
@@ -161,7 +161,7 @@ const SingleProductDetails = () => {
 											/>{' '}
 											Wish List
 										</button> */}
-										<button className='lg:w-6/12 border rounded-none border-black bg-white py-3 lg:px-9 px-2 md:px-9 text-xl'>
+										{/* <button className='lg:w-6/12 border rounded-none border-black bg-white py-3 lg:px-9 px-2 md:px-9 text-xl'>
 											Size Guide
 										</button>
 										<br />
@@ -169,22 +169,21 @@ const SingleProductDetails = () => {
 											{product?.sizes?.map((size) => (
 												<span className='border text-2xl p-2'>{size}</span>
 											))}
-										</div>
+										</div> */}
 									</div>
 									<div className='flex gap-5 flex-wrap'>
-										<ProductCounter item={singleItemDetails} />
+										<ProductCounter item={product} />
 										<button
-											onClick={() => handleAddToCart(singleItemDetails)}
+											onClick={() => {
+												handleAddToCart(product);
+											}}
 											className='border-black border lg:px-8 px-4 lg:py-0 md:py-0 py-3 lg:w-auto md:w-auto w-full text-xl font-semibold'
 										>
 											Add to Cart
 										</button>
 									</div>
 									<div>
-										<Link
-											to='/cart'
-											onClick={() => handleAddToCart(singleItemDetails)}
-										>
+										<Link to='/cart' onClick={() => handleAddToCart(product)}>
 											<button className='border-black border w-full px-8 text-xl font-semibold py-3 bg-[#0C4E67] text-white'>
 												Purchase
 											</button>

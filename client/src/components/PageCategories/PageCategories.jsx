@@ -5,6 +5,7 @@ import Category from './Category';
 import Loading from '../Loading/Loading';
 import { getCategoryByName } from '../../Api/categoryServices';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 // import Category from './Category';
 
 const PageCategories = ({ categoryName }) => {
@@ -14,12 +15,13 @@ const PageCategories = ({ categoryName }) => {
 	const [categoryData, setCateGoryData] = useState();
 
 	useEffect(() => {
-		const data = categories.data?.find((category) =>
-			category.name?.toLowerCase().includes(categoryName?.toLowerCase())
+		const data = categories.data?.find(
+			(category) => category.name?.toLowerCase() === categoryName?.toLowerCase()
 		);
 		setCateGoryData(data);
 	}, [categoryName, categories.status]);
 
+	console.log(categoryData);
 	if (categories.status === 'loading') return <Loading />;
 	return (
 		<div className='container w-[80%] mx-auto'>
@@ -31,7 +33,9 @@ const PageCategories = ({ categoryName }) => {
 					?.slice(0, quantity)
 					?.map((category, idx) => (
 						<Slide key={idx}>
-							<Category category={category}></Category>
+							<Link to={`/${categoryData.name}/${category.title}`}>
+								<Category category={category}></Category>
+							</Link>
 						</Slide>
 					))}
 			</div>

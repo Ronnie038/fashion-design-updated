@@ -20,7 +20,7 @@ const UpdateOrder = () => {
 	useEffect(() => {
 		getOrder();
 	}, [id]);
-	console.log({ status });
+	// console.log({ status });
 
 	const getOrder = async () => {
 		try {
@@ -29,7 +29,7 @@ const UpdateOrder = () => {
 			});
 			const data = await res.json();
 			if (res.ok) {
-				console.log(data);
+				// console.log(data);
 				setOrderData(data.data);
 			}
 		} catch (error) {
